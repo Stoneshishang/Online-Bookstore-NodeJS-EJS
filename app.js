@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 //let express know that static files are held in the public folder
 app.use(express.static("public"));
 
+let postsSignin = [];
 
 app.get("/", function(req, res){
   res.render("home");
@@ -22,6 +23,16 @@ app.get("/", function(req, res){
 
 app.get("/signin", function(req, res){
   res.render("signin");
+});
+
+app.post("/signin", function(req, res){
+  const postSignin = {
+    title: req.body.postSigninUsername,
+    content: req.body.postSigninPassword
+  };
+  postsSignin.push(postSignin);    //add an if statement to check that username and password is valid here
+
+  //res.redirect("/welcome")   will create a signed-on page for redirect to the page once that is created
 });
 
 app.get("/register", function(req, res){
