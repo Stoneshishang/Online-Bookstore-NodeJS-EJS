@@ -17,10 +17,12 @@
   },
   "homepage": "https://github.com/aaalao/alsideeq-online-bookstore#readme",
   "dependencies": {
+    "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "bootstrap-icons": "^1.0.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "ssl-root-cas": "^1.3.1"
   }
 }
