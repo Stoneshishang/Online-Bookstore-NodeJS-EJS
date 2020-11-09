@@ -1,61 +1,188 @@
 <%- include("partials/header"); -%>
-  </head>
-  <body class="text-center">
-    <div class="container">
-      <form class="form-register">
-        <div class="form-group">
-          <label for="firstName">First Name</label>
-          <input type="text" class="form-control" id="firstName">
-        </div>
-        <div class="form-group">
-          <label for="middleName">Middle Name</label>
-          <input type="text" class="form-control" id="middleName">
-        </div>
-        <div class="form-group">
-          <label for="lastName">Last Name</label>
-          <input type="text" class="form-control" id="lastName">
-        </div>
-        <div class="form-group">
-          <label for="signupEmail">Email</label>
-          <input type="email" class="form-control" id="signupEmail" placeholder="Email address">
-        </div>
-        <div class="form-group">
-          <label for="signupPassword">Password</label>
-          <input type="password" class="form-control" id="signupPassword" placeholder="Password">
-        </div>
-        <div class="form-group">
-          <label for="signupAddress">Address</label>
-          <input type="text" class="form-control" id="signupAddress" placeholder="1234 Main St">
-        </div>
-        <div class="form-group">
-          <label for="signupAddress2">Address</label>
-          <input type="text" class="form-control" id="signupAddress2" placeholder="Apartment, studio, or floor">
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputCity">City</label>
-            <input type="text" class="form-control" id="inputCity">
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <a class="navbar-brand" href="/">Al-SIDDIQUE ONLINE BOOKSTORE</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">HOME</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">ABOUT US</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/customerservice">CUSTOMER SERVICE</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/signin">SIGN IN</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="register" aria-disabled="true">REGISTER<span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <form class="form" action="/register" method="post">
+      <div class="form-group">
+        <label for="firstName"></label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-users"></i></span>
           </div>
-          <div class="form-group col-md-4">
-            <label for="inputState">State</label>
-            <select id="inputState" class="form-control">
-              <option selected>Choose...</option>
-              <option>...</option>
-            </select>
-          </div>
-          <div class="form-group col-md-2">
-            <label for="inputZip">ZipCode</label>
-            <input type="text" class="form-control" id="inputZip">
-          </div>
+          <input type="text" class="form-control" id="firstName" placeholder="First Name" name="registerFirstName">
         </div>
-        <button type="submit" class="btn btn-primary">Sign in</button>
-      </form>
+      </div>
+      <div class="form-group">
+        <label for="lastName"></label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-users"></i></span>
+          </div>
+          <input type="text" class="form-control" id="lastName" placeholder="Last Name" name="registerLastName">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="signupEmail"></label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="far fa-envelope"></i></span>
+          </div>
+          <input type="email" class="form-control" id="signupEmail" placeholder="Email address" name="registerEmailAddress">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="signupUserName"></label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">@</span>
+          </div>
+          <input type="text" class="form-control" id="signupUserName" name="registerUsername" placeholder="Username">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="signupPassword"></label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-key"></i></span>
+          </div>
+          <input type="password" class="form-control" id="signupPassword" placeholder="Password" name="registerPassword">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="signupAddress"></label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-home"></i></span>
+          </div>
+          <input type="text" class="form-control" id="signupAddress" placeholder="1234 Main St" name="registerAddress1">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="signupAddress2"></label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-home"></i></span>
+          </div>
+          <input type="text" class="form-control" id="signupAddress2" placeholder="Apartment, studio, or floor" name="registerAddress2">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputCity">City</label>
+          <input type="text" class="form-control" id="inputCity" name="registerInputCity">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputState">State</label>
+          <select id="inputState" class="form-control" name="registerInputState">
+            <option selected>Choose...</option>
+            <option value="AL">Alabama (AL)</option>
+            <option value="AK">Alaska (AK)</option>
+            <option value="AZ">Arizona (AZ)</option>
+            <option value="AR">Arkansas (AR)</option>
+            <option value="CA">California (CA)</option>
+            <option value="CO">Colorado (CO)</option>
+            <option value="CT">Connecticut (CT)</option>
+            <option value="DE">Delaware (DE)</option>
+            <option value="DC">District Of Columbia (DC)</option>
+            <option value="FL">Florida (FL)</option>
+            <option value="GA">Georgia (GA)</option>
+            <option value="HI">Hawaii (HI)</option>
+            <option value="ID">Idaho (ID)</option>
+            <option value="IL">Illinois (IL)</option>
+            <option value="IN">Indiana (IN)</option>
+            <option value="IA">Iowa (IA)</option>
+            <option value="KS">Kansas (KS)</option>
+            <option value="KY">Kentucky (KY)</option>
+            <option value="LA">Louisiana (LA)</option>
+            <option value="ME">Maine (ME)</option>
+            <option value="MD">Maryland (MD)</option>
+            <option value="MA">Massachusetts (MA)</option>
+            <option value="MI">Michigan (MI)</option>
+            <option value="MN">Minnesota (MN)</option>
+            <option value="MS">Mississippi (MS)</option>
+            <option value="MO">Missouri (MO)</option>
+            <option value="MT">Montana (MT)</option>
+            <option value="NE">Nebraska (NE)</option>
+            <option value="NV">Nevada (NV)</option>
+            <option value="NH">New Hampshire (NH)</option>
+            <option value="NJ">New Jersey (NJ)</option>
+            <option value="NM">New Mexico (NM)</option>
+            <option value="NY">New York (NY)</option>
+            <option value="NC">North Carolina (NC)</option>
+            <option value="ND">North Dakota (ND)</option>
+            <option value="OH">Ohio (OH)</option>
+            <option value="OK">Oklahoma (OK)</option>
+            <option value="OR">Oregon (OR)</option>
+            <option value="PA">Pennsylvania (PA)</option>
+            <option value="RI">Rhode Island (RI)</option>
+            <option value="SC">South Carolina (SC)</option>
+            <option value="SD">South Dakota (SD)</option>
+            <option value="TN">Tennessee (TN)</option>
+            <option value="TX">Texas (TX)</option>
+            <option value="UT">Utah (UT)</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputZip">ZipCode</label>
+          <input type="text" class="form-control" id="inputZip" name="registerInputZip">
+        </div>
+      </div>
+      <div class="form-group">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+        <label class="form-check-label" for="invalidCheck">
+          Agree to terms and conditions
+        </label>
+        <div class="invalid-feedback">
+          You must agree before submitting.
+        </div>
+      </div>
+      </div>
+      <div>
+        <button type="submit" value="accept" class="btn btn-primary">Register</button>
+      </div>
+    </form>
+  </div>
+  <div class="footer-padding"></div>
+  <div class="footer">
+    <p>©Copyright 2020 Alsideeq ☪️ Bookstore</p>
+  </div>
+  </div>
 
+</body>
 
-
-
-
-
-
-
-<%- include("partials/footer"); -%>
+</html>
