@@ -24,6 +24,8 @@ app.get("/signin", function(req, res){
 app.post("/signin", function(req, res){
  let logOnEmail_    = req.body.logOnEmail;
  let logOnPassword_ = req.body.logOnPassword;
+ console.log(logOnEmail_);
+ console.log(logOnPassword_);
 });
 
 app.get("/register", function(req, res){

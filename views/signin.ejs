@@ -30,32 +30,21 @@
   </header>
 
   <div class="container">
-    <form class="form text-center border border-light p-5" action="#!">
+    <form class="form text-center border border-light p-5" action="/signin" method="post">
       <img class="mb-4" src="/images/favicon_io/favicon.ico" alt="" width="72" height="72">
       <p class="h4 mb-4">Please Sign In</p>
-      <input type="email" name="logOnEmail" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
-      <input type="password" name="logOnPassword" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
-      <div class="d-flex justify-content-around">
-        <div>
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-            <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
-          </div>
-        </div>
-        <div>
-          <a href="">Forgot password?</a>
-        </div>
-      </div>
-      <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
-      <p>Not a member?
-        <a href="/register">Register</a>
-      </p>
+    <% for (var i in signin){%>
+      EmailSiginin:   <input type="email" name="logOnEmail" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+      PasswordSignin: <input type="password" name="logOnPassword" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+      <button class="btn btn-info btn-block my-4" type="submit" value="accept">Sign in</button>
+    <%} %>
       <p>or sign in with:</p>
 
       <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
       <a href="#" class="mx-2" role="button"><i class="fab fa-twitter light-blue-text"></i></a>
       <a href="#" class="mx-2" role="button"><i class="fab fa-linkedin-in light-blue-text"></i></a>
       <a href="#" class="mx-2" role="button"><i class="fab fa-github light-blue-text"></i></a>
+
     </form>
 
   </div>
