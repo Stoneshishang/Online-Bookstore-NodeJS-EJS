@@ -43,6 +43,16 @@ app.post("/register", function(req, res){
   let registerInputCity_    =       req.body.registerInputCity;
   let registerInputState_   =       req.body.registerInputState;
   let registerInputZip_     =       req.body.registerInputZip;
+  console.log(registerFirstName_);
+  console.log(registerLastName_);
+  console.log(registerEmailAddress_);
+  console.log(registerUsername_);
+  console.log(registerPassword_);
+  console.log(registerAddress1_);
+  console.log(registerAddress2_);
+  console.log(registerInputCity_);
+  console.log(registerInputState_);
+  console.log(registerInputZip_);
 });
 
 app.get("/customerservice", function(req, res){
@@ -53,6 +63,9 @@ app.post("/customerservice", function(req, res){
   let custServEmail_       = req.body.custServEmail;
   let custServOrderNumber_ = req.body.custServOrderNumber;
   let custServText_        = req.body.custServText;
+  console.log(custServEmail_);
+  console.log(custServOrderNumber_);
+  console.log(custServText_);
 });
 
 
