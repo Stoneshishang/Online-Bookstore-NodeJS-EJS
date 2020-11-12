@@ -9,6 +9,7 @@ process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 //create app using express
 const app = express();
+let accountCreatedMessage = "";
 //set view engine using ejs
 app.set('view engine', 'ejs');
 //use body parser
@@ -21,7 +22,8 @@ app.get("/", function(req, res){
 });
 
 app.get("/signin", function(req, res){
-  res.render("signin");
+
+  res.render("signin",{createAccountSuccess: accountCreatedMessage});
 });
 
 app.post("/signin", function(req, res){
@@ -100,7 +102,9 @@ app.post("/register", function(req, res){
     console.log(error);
   });
 
-  res.redirect('/')
+  accountCreatedMessage="Account has been created successfully, please sign in!"
+  
+  res.redirect('/signin')
 
 });
 
