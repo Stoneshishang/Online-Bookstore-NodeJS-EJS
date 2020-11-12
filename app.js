@@ -25,6 +25,8 @@ app.get("/signin", function(req, res){
 });
 
 app.post("/signin", function(req, res){
+  //username is in Postman POST request Login. it randomly generated in the Postman pre-request Script
+  //password is aaldhahe
  let logOnUserName_    = req.body.userName;
  let logOnPassword_ = req.body.logOnPassword;
  const body={ 
@@ -51,6 +53,7 @@ app.post("/register", function(req, res){
   let registerFirstName_    =       req.body.registerFirstName;
   let registerLastName_     =       req.body.registerLastName;
   let registerEmailAddress_ =       req.body.registerEmailAddress;
+  let registerPhone_ = req.body.registerPhone;
   let registerUsername_     =       req.body.registerUsername;
   let registerPassword_     =       req.body.registerPassword;
   let registerAddress1_     =       req.body.registerAddress1;
@@ -58,6 +61,47 @@ app.post("/register", function(req, res){
   let registerInputCity_    =       req.body.registerInputCity;
   let registerInputState_   =       req.body.registerInputState;
   let registerInputZip_     =       req.body.registerInputZip;
+  console.log(registerFirstName_);
+  console.log(registerLastName_);
+  console.log(registerEmailAddress_);
+  console.log(registerPhone_);
+  console.log(registerUsername_);
+  console.log(registerPassword_);
+  console.log(registerAddress1_);
+  console.log(registerAddress2_);
+  console.log(registerInputCity_);
+  console.log(registerInputState_);
+  console.log(registerInputZip_);
+
+  const body={
+    username : registerUsername_,
+    firstname: registerFirstName_,
+    lastname: registerLastName_,
+    phone: registerPhone_,
+    email: registerEmailAddress_,
+    password: registerPassword_,
+    address: {
+        address: registerAddress1_,
+        address2: registerAddress2_,
+        city: registerInputCity_,
+        zipCode: registerInputZip_,
+        country: "USA",
+        state: registerInputZip_
+    }
+  }
+
+  axios.post( `${localhost}/Account/CreateAccount`,
+  body
+  )
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+  res.redirect('/')
+
 });
 
 app.get("/customerservice", function(req, res){
