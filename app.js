@@ -4,12 +4,14 @@ const ejs = require("ejs");
 const _ = require("lodash");
 const axios = require('axios');
 const { localhost } = require('./config');
+const { response } = require("express");
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 //create app using express
 const app = express();
 let accountCreatedMessage = "";
+let signedInMessage = "";
 //set view engine using ejs
 app.set('view engine', 'ejs');
 //use body parser
@@ -23,7 +25,7 @@ app.get("/", function(req, res){
 
 app.get("/signin", function(req, res){
 
-  res.render("signin",{createAccountSuccess: accountCreatedMessage});
+  res.render("signin",{createAccountSuccess: accountCreatedMessage, signedInfail: signedInMessage});
 });
 
 app.post("/signin", function(req, res){
@@ -31,20 +33,30 @@ app.post("/signin", function(req, res){
   //password is aaldhahe
  let logOnUserName_    = req.body.userName;
  let logOnPassword_ = req.body.logOnPassword;
- const body={ 
-  username : logOnUserName_,
-  password : logOnPassword_
-};
+
+  const body1={ 
+    username : logOnUserName_,
+    password : logOnPassword_
+  };
+
   axios.post( `${localhost}/Security/Login`,
-  body
+  body1
   )
   .then(function (response) {
-    console.log(response);
+    console.log('login response',response.status);
+    if(response.status == 200){
+      res.redirect('/signedonalready')
+    }
   })
   .catch(function (error) {
     console.log(error);
+    if(response.status !== 200 && response.status !== null){
+      signedInMessage = "Username or Password is incorrect, please retry."
+      res.redirect('/signin')
+    }
   });
 
+  
 });
 
 app.get("/register", function(req, res){
