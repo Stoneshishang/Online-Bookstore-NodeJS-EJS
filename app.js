@@ -60,7 +60,8 @@ app.post("/signin", function(req, res){
 });
 
 app.get("/register", function(req, res){
-  res.render("register");
+  res.render("register",{createAccountFail: accountCreatedMessage});
+
 });
 
 app.post("/register", function(req, res){
@@ -104,19 +105,41 @@ app.post("/register", function(req, res){
     }
   }
 
-  axios.post( `${localhost}/Account/CreateAccount`,
-  body
+  const userNameVerify= {
+    username : registerUsername_
+  }
+
+  axios.post( `${localhost}/Account/VerifyExist`,
+  userNameVerify
   )
   .then(function (response) {
-    console.log(response);
+    console.log('User Name Verification Success');
+
+    axios.post( `${localhost}/Account/CreateAccount`,
+    body
+    )
+    .then(function (response) {
+      console.log('createAccount Success');
+      accountCreatedMessage="Account has been created successfully, please sign in!"
+      res.redirect('/signin')
+    })
+    .catch(function (error) {
+      console.log('Create Account Error');
+      accountCreatedMessage="Something went wrong, please try a new Username"
+      res.redirect('/register')
+    });
+
+    
   })
   .catch(function (error) {
     console.log(error);
+    
   });
 
-  accountCreatedMessage="Account has been created successfully, please sign in!"
+
   
-  res.redirect('/signin')
+  
+ 
 
 });
 
