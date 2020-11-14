@@ -20,10 +20,35 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.get("/", function(req, res){
+
+  axios.get(`${localhost}/Book/Books`)
+  .then(function (response) {
+    // handle success
+    console.log('status: ',response.status);
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+
+  axios.get(`${localhost}/Category/Category/Fiqh`)
+  .then(function (response) {
+    // handle success
+    console.log('status: ',response.status);
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+
   res.render("home");
 });
 
 app.get("/signin", function(req, res){
+
+  signedInMessage ==="";
 
   res.render("signin",{createAccountSuccess: accountCreatedMessage, signedInfail: signedInMessage});
 });
