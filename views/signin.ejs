@@ -32,9 +32,7 @@
   <div class="container">
     <form class="form text-center border border-light p-5" action="/signin" method="post">
       <img class="mb-4" src="/images/favicon_io/favicon.ico" alt="" width="72" height="72">
-      <p style="background-color:rgb(147, 236, 74) ;"> <%=  createAccountSuccess %> </p>
-      <p style="background-color:rgb(245, 86, 86);"> <%= signedInfail %> </p>
-
+     <%- include('./messages') -%>
       <p class="h4 mb-4">Please Sign In</p>
  
       UserNameSignIn:   <input type="userName" name="userName" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="userName">
