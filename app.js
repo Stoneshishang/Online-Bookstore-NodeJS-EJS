@@ -10,8 +10,12 @@ process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 //create app using express
 const app = express();
-let accountCreatedMessage = "";
-let signedInMessage = "";
+
+const clientPath = `${__dirname}/client`;
+console.log(`Serving static from ${clientPath}`);
+
+app.use(express.static(clientPath));
+
 //set view engine using ejs
 app.set('view engine', 'ejs');
 //use body parser
@@ -24,8 +28,8 @@ app.get("/", function(req, res){
   axios.get(`${localhost}/Book/Books`)
   .then(function (response) {
     // handle success
-    console.log('status: ',response.status);
-    console.log(response.data);
+    // console.log('status: ',response.status);
+    // console.log(response.data);
   })
   .catch(function (error) {
     // handle error
@@ -35,8 +39,8 @@ app.get("/", function(req, res){
   axios.get(`${localhost}/Category/Category/Fiqh`)
   .then(function (response) {
     // handle success
-    console.log('status: ',response.status);
-    console.log(response.data);
+    // console.log('status: ',response.status);
+    // console.log(response.data);
   })
   .catch(function (error) {
     // handle error
@@ -48,15 +52,13 @@ app.get("/", function(req, res){
 
 app.get("/signin", function(req, res){
 
-  signedInMessage ==="";
-
-  res.render("signin",{createAccountSuccess: accountCreatedMessage, signedInfail: signedInMessage});
+  res.render("signin");
 });
 
 app.post("/signin", function(req, res){
   //username is in Postman POST request Login. it randomly generated in the Postman pre-request Script
   //password is aaldhahe
- let logOnUserName_    = req.body.userName;
+ let logOnUserName_ = req.body.userName;
  let logOnPassword_ = req.body.logOnPassword;
 
   const body1={ 
@@ -76,7 +78,6 @@ app.post("/signin", function(req, res){
   .catch(function (error) {
     console.log(error);
     if(response.status !== 200 && response.status !== null){
-      signedInMessage = "Username or Password is incorrect, please retry."
       res.redirect('/signin')
     }
   });
@@ -85,7 +86,7 @@ app.post("/signin", function(req, res){
 });
 
 app.get("/register", function(req, res){
-  res.render("register",{createAccountFail: accountCreatedMessage});
+  res.render("register");
 
 });
 
@@ -145,12 +146,10 @@ app.post("/register", function(req, res){
     )
     .then(function (response) {
       console.log('createAccount Success');
-      accountCreatedMessage="Account has been created successfully, please sign in!"
       res.redirect('/signin')
     })
     .catch(function (error) {
       console.log('Create Account Error');
-      accountCreatedMessage="Something went wrong, please try a new Username"
       res.redirect('/register')
     });
 
@@ -160,10 +159,6 @@ app.post("/register", function(req, res){
     console.log(error);
     
   });
-
-
-  
-  
  
 
 });
