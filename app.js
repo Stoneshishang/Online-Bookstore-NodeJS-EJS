@@ -11,6 +11,14 @@ process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 //create app using express
 const app = express();
 
+<<<<<<< HEAD
+=======
+const clientPath = `${__dirname}/client`;
+console.log(`Serving static from ${clientPath}`);
+
+app.use(express.static(clientPath));
+
+>>>>>>> 9c99258f2660e3126fc3bd805ad854a6bb2a5b6c
 //set view engine using ejs
 app.set('view engine', 'ejs');
 //use body parser
@@ -51,14 +59,24 @@ app.get("/", function(req, res){
   res.render("home");
 });
 
+<<<<<<< HEAD
 app.get("/signin", messages, function(req, res){
+=======
+app.get("/signin", function(req, res){
+>>>>>>> 9c99258f2660e3126fc3bd805ad854a6bb2a5b6c
 
   res.render("signin");
 });
 
 app.post("/signin", function(req, res){
+<<<<<<< HEAD
  
  let logOnUserName_    = req.body.userName;
+=======
+  //username is in Postman POST request Login. it randomly generated in the Postman pre-request Script
+  //password is aaldhahe
+ let logOnUserName_ = req.body.userName;
+>>>>>>> 9c99258f2660e3126fc3bd805ad854a6bb2a5b6c
  let logOnPassword_ = req.body.logOnPassword;
 
 
@@ -77,18 +95,29 @@ app.post("/signin", function(req, res){
     }
   })
   .catch(function (error) {
+<<<<<<< HEAD
     console.log('signed in Fail');
     // if(response.status !== 200 && response.status !== null){
       let message = "Username or Password is incorrect, please retry."
       res.locals.message = message;
       res.render('signin')
     // }
+=======
+    console.log(error);
+    if(response.status !== 200 && response.status !== null){
+      res.redirect('/signin')
+    }
+>>>>>>> 9c99258f2660e3126fc3bd805ad854a6bb2a5b6c
   });
 
   
 });
 
+<<<<<<< HEAD
 app.get("/register", messages,function(req, res){
+=======
+app.get("/register", function(req, res){
+>>>>>>> 9c99258f2660e3126fc3bd805ad854a6bb2a5b6c
   res.render("register");
 
 });
@@ -149,18 +178,25 @@ app.post("/register", function(req, res){
     )
     .then(function (response) {
       console.log('createAccount Success');
+<<<<<<< HEAD
 
       let message = "Account has been successfully Created!"
       res.locals.message = message;
   
+=======
+>>>>>>> 9c99258f2660e3126fc3bd805ad854a6bb2a5b6c
       res.redirect('/signin')
     })
     .catch(function (error) {
       console.log('Create Account Error');
+<<<<<<< HEAD
       let message = "Account has existed, please change the username and try again!"
       res.locals.message = message;
 
       res.render('register')
+=======
+      res.redirect('/register')
+>>>>>>> 9c99258f2660e3126fc3bd805ad854a6bb2a5b6c
     });
 
     
@@ -169,10 +205,6 @@ app.post("/register", function(req, res){
     console.log(error);
     
   });
-
-
-  
-  
  
 
 });
