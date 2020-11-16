@@ -5,6 +5,7 @@ const _ = require("lodash");
 const axios = require('axios');
 const { localhost } = require('./config');
 const { response } = require("express");
+const date = require(__dirname + "/date.js");
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
@@ -26,29 +27,7 @@ const messages = (req,res,next) =>{
 
 app.get("/", function(req, res){
 
-  axios.get(`${localhost}/Book/Books`)
-  .then(function (response) {
-    // handle success
-    // console.log('status: ',response.status);
-    // console.log(response.data);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-
-  axios.get(`${localhost}/Category/Category/Fiqh`)
-  .then(function (response) {
-    // handle success
-    // console.log('status: ',response.status);
-    // console.log(response.data);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-
-  res.render("home");
+    res.render("home");
 });
 
 app.get("/signin", messages, function(req, res){
@@ -73,7 +52,7 @@ app.post("/signin", function(req, res){
   .then(function (response) {
     console.log('login success');
     if(response.status == 200){
-      res.redirect('/signedonalready')
+      res.redirect('/signedonhome')
     }
   })
   .catch(function (error) {
@@ -105,17 +84,6 @@ app.post("/register", function(req, res){
   let registerInputCity_    =       req.body.registerInputCity;
   let registerInputState_   =       req.body.registerInputState;
   let registerInputZip_     =       req.body.registerInputZip;
-  console.log(registerFirstName_);
-  console.log(registerLastName_);
-  console.log(registerEmailAddress_);
-  console.log(registerPhone_);
-  console.log(registerUsername_);
-  console.log(registerPassword_);
-  console.log(registerAddress1_);
-  console.log(registerAddress2_);
-  console.log(registerInputCity_);
-  console.log(registerInputState_);
-  console.log(registerInputZip_);
 
   const body={
     username : registerUsername_,
@@ -184,11 +152,38 @@ app.post("/customerservice", function(req, res){
 });
 
 
-app.get("/signedonalready", function(req, res){
-  res.render("signedonalready");
+app.get("/signedonhome", function(req, res){
+
+  axios.get(`${localhost}/Book/Books`)
+  .then(function (response) {
+    // handle success
+    console.log('status: ',response.status);
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+
+  axios.get(`${localhost}/Category/Category/Fiqh`)
+  .then(function (response) {
+    // handle success
+    console.log('status: ',response.status);
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+	  
+  const myUserName = "Shang";
+  const day = date.getDate();
+  res.render("signedonhome", {userName: myUserName, todayToday: day});
 });
 
+
 app.post("/signedonhome", function(req, res){
+
 });
 
 
