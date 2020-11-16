@@ -10,6 +10,7 @@ const app = express();
 app.set('view engine', 'ejs');
 //use body parser
 app.use(bodyParser.urlencoded({extended: true}));
+const date = require(__dirname + "/date.js");
 //let express know that static files are held in the public folder
 app.use(express.static("public"));
 
@@ -69,12 +70,16 @@ app.post("/customerservice", function(req, res){
 });
 
 
-app.get("/signedonalready", function(req, res){
-  res.render("signedonalready");
+app.get("/signedonhome", function(req, res){
+  const myUserName = "Shang";
+  const day = date.getDate();
+  res.render("signedonhome", {userName: myUserName, todayToday: day});
 });
 
 app.post("/signedonhome", function(req, res){
 });
+
+
 
 
 
