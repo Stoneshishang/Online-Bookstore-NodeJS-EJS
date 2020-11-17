@@ -74,10 +74,8 @@ app.post("/customerservice", function(req, res){
 
 
 app.get("/signedonhome", function(req, res){
-  // const myUserName = "Shang";
-  // const day = date.getDate();
-  const myBook = new modulate.getbookItemList("Islamic book", "Suleiman Abdul Jabar", "$35")
-  res.render("signedonhome", {bookListItemsCount: myBook.counting, bookListTitle : myBook.title, bookListPrice: myBook.price});
+  const myBook1 = new modulate.getbookItemList("Islamic book", "Suleiman Abdul Jabar", "$35")
+  res.render("signedonhome", {bookListItemsCount: myBook1.counting, bookListTitle : myBook1.title, bookListPrice: myBook1.price});
 });
 
 app.post("/signedonhome", function(req, res){
