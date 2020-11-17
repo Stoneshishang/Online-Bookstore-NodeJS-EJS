@@ -10,9 +10,12 @@ const app = express();
 app.set('view engine', 'ejs');
 //use body parser
 app.use(bodyParser.urlencoded({extended: true}));
-const date = require(__dirname + "/date.js");
+const modulate = require(__dirname + "/modular.js");
 //let express know that static files are held in the public folder
 app.use(express.static("public"));
+
+
+const Books = new Object();
 
 app.get("/", function(req, res){
   res.render("home");
@@ -71,9 +74,10 @@ app.post("/customerservice", function(req, res){
 
 
 app.get("/signedonhome", function(req, res){
-  const myUserName = "Shang";
-  const day = date.getDate();
-  res.render("signedonhome", {userName: myUserName, todayToday: day});
+  // const myUserName = "Shang";
+  // const day = date.getDate();
+  const myBook = new modulate.getbookItemList("Islamic book", "Suleiman Abdul Jabar", "$35")
+  res.render("signedonhome", {bookListItemsCount: myBook.counting, bookListTitle : myBook.title, bookListPrice: myBook.price});
 });
 
 app.post("/signedonhome", function(req, res){

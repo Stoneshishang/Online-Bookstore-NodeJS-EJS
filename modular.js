@@ -17,3 +17,13 @@ exports.getDay = function() {
 
   return today.toLocaleDateString("en-US", options);
 };
+
+module.exports.getbookItemList = function(title, author, price){
+  var instances = 0;
+  this.title = title;
+  this.author = author;
+  this.price = price;
+  instances++;
+  this.counting = instances;
+  return instances;
+}

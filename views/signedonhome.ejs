@@ -38,6 +38,11 @@
             <a class="nav-link" href="#">MY ACCOUNT</a>
           </li>
           <li class="nav-item">
+            <span style="color: Dodgerblue;">
+            <i class="fas fa-shopping-cart fa-3x"></i>
+            </span>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">LOG OUT</a>
           </li>
         </ul>
@@ -47,30 +52,20 @@
 
   <main role="main">
 
-    <div class="container">
-
-        <div class="row wow fadeIn" data-wow-delay="0.2s">
-            <div class="col-md-12">
-                <div class="jumbotron">
-                    <h1 class="h1-responsive">Hello, <%=userName%></h1>
-                    <br>
-                    <h2> <%= todayToday %> </h2>
-                    <hr>
-                    <p>Search for Islamic books either by book title or book author (...by clicking the "Browse by Author" button)</p>
-                    <!-- Search form -->
-                    <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2">
-                      <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
-                        aria-label="Search">
-                      <i class="fas fa-search" aria-hidden="true"></i>
-                    </form>
-                    <div>
-                      <p></p>
-                      <p><button type="button" class="btn btn-info">Browse by Author</button></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="">
+      <% for(var i=0;i<bookListItemsCount;i++) { %>
+      <div class="row">
+        <input type="checkbox">
+        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
+          <title>Placeholder</title>
+          <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+        </svg>
+        <p> <%= bookListTitle %> </p>
+        <p> <%= bookListPrice %> </p>
+      </div>
+      <% } %>
     </div>
+
     <hr class="extra-margins">
   </main>
   <!-- FOOTER -->
