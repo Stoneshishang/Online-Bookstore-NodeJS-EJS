@@ -18,12 +18,32 @@ exports.getDay = function() {
   return today.toLocaleDateString("en-US", options);
 };
 
-module.exports.getbookItemList = function(title, author, price){
-  var instances = 0;
-  this.title = title;
-  this.author = author;
-  this.price = price;
-  instances++;
-  this.counting = instances;
-  return instances;
+exports.getbookInfo = function(){
+  const bookList = [
+    {
+      "title": "Islamic book of ABAIC 1",
+      "price": "$35",
+      "Author": "Bakr Alsideeq",
+      "description": "The best Islamic book since slice bread"
+    },
+    {
+      "title": "Islamic book of ABAIC 2",
+      "price": "$76",
+      "Author": "Alsideeq Bakr",
+      "description": "The best Islamic book since the last best Islamic book"
+    },
+    {
+      "title": "Islamic book of ABAIC 3",
+      "price": "$100",
+      "Author": "The Islamic center itself",
+      "description": ""
+    }
+  ]
+ return bookList;
+}
+
+exports.getUserFirstName = function(){
+    const myFirstName = "AhmedShangAbi";
+
+    return myFirstName;
 }

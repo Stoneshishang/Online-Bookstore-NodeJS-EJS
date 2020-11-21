@@ -205,9 +205,10 @@ app.get("/signedonhome", function(req, res){
     console.log(error);
   })
 
-  const myUserName = "Shang";
-  const day = date.getDate();
-  res.render("signedonhome", {userName: myUserName, todayToday: day});
+  const myUserFirstName = modulate.getUserFirstName();
+  const day             = modulate.getDate();
+  const Books           = modulate.getbookInfo();
+  res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: Books});
 });
 
 

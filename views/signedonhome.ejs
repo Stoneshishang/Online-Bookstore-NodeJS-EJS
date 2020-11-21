@@ -10,6 +10,9 @@
   <link href="/images/favicon_io/favicon-32x32.png" rel="icon">
   <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/styles.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- font awesome script for icon used-->
   <script src="https://kit.fontawesome.com/d48db10d3a.js" crossorigin="anonymous"></script>
 </head>
@@ -39,7 +42,7 @@
           </li>
           <li class="nav-item">
             <span style="color: Dodgerblue;">
-            <i class="fas fa-shopping-cart fa-3x"></i>
+              <i class="fas fa-shopping-cart fa-3x"></i>
             </span>
           </li>
           <li class="nav-item">
@@ -51,30 +54,50 @@
   </header>
 
   <main role="main">
+    <div class="homePageBackground">
+      <div class="container py-5">
+        <div class="row text-center text-white mb-5">
+          <div class="col-lg-7 mx-auto">
+            <h1 class="display-4">Hello, <%= userFirstName %> </h1>
+            <p class="lead mb-0"> <%= todayDate %> </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <% for(var i=0;i<newListItems.length;i++) { %>
+            <div class="Each-book">
+              <!-- List group-->
+              <ul class="list-group shadow">
 
-    <div class="box">
-      <% for(var i=0;i<bookListItemsCount;i++) { %>
-      <div class="row">
-        <div class="col-lg-3 centering">
-           <input type="checkbox">
-        </div>
-        <div class="col-lg-3">
-          <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 140x140">
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#777" /><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-          </svg>
-        </div>
-        <div class="col-lg-3 centering">
-          <p> <%= bookListTitle %> </p>
-        </div>
-        <div class="col-lg-3 centering">
-          <p> <%= bookListPrice %> </p>
+                <!-- list group item-->
+                <li class="list-group-item">
+                  <!-- Custom content-->
+                  <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                    <div class="media-body order-2 order-lg-1">
+                      <h5 class="mt-0 font-weight-bold mb-2"> <%= newListItems[i].title %> </h5>
+                      <p class="font-italic text-muted mb-0 small"> <%= newListItems[i].description  %> </p>
+                      <div class="d-flex align-items-center justify-content-between mt-1">
+                        <h6 class="font-weight-bold my-2"> <%= newListItems[i].price %> </h6>
+                        <ul class="list-inline small">
+                          <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                          <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                          <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                          <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                          <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        </ul>
+                      </div>
+                    </div><img src="/images/bookImage.jpg" alt="Placeholder Book Image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                  </div>
+                  <div class="add-to-cart">
+                    <a href="#" class="default-btn">Add to Cart</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <% } %>
+          </div>
         </div>
       </div>
-      <% } %>
-    </div>
-
-    <hr class="extra-margins">
   </main>
   <!-- FOOTER -->
   <div class="footer-padding"></div>
