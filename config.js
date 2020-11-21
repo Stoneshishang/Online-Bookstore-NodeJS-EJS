@@ -1,4 +1,4 @@
-const localhost="localhost:5000"
+const localhost="http://localhost:5000"
 module.exports = {
   localhost
 }

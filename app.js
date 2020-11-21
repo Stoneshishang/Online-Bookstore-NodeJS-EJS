@@ -2,10 +2,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
+const axios = require('axios');
+const { localhost } = require('./config');
+const { response } = require("express");
+const date = require(__dirname + "/date.js");
 
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 //create app using express
 const app = express();
+
 //set view engine using ejs
 app.set('view engine', 'ejs');
 //use body parser
@@ -14,26 +20,128 @@ const modulate = require(__dirname + "/modular.js");
 //let express know that static files are held in the public folder
 app.use(express.static("public"));
 
+const messages = (req,res,next) =>{
+  let message;
+  res.locals.message = message;
+  next()
+}
 
 const Books = new Object();
 
 app.get("/", function(req, res){
-  res.render("home");
+
+    res.render("home");
 });
 
-app.get("/signin", function(req, res){
+app.get("/signin", messages, function(req, res){
+
   res.render("signin");
 });
 
 app.post("/signin", function(req, res){
- let logOnEmail_    = req.body.logOnEmail;
+
+ let logOnUserName_    = req.body.userName;
  let logOnPassword_ = req.body.logOnPassword;
- console.log(logOnEmail_);
- console.log(logOnPassword_);
+
+
+  const body1={
+    username : logOnUserName_,
+    password : logOnPassword_
+  };
+
+  axios.post( `${localhost}/Security/Login`,
+  body1
+  )
+  .then(function (response) {
+    console.log('login success');
+    if(response.status == 200){
+      res.redirect('/signedonhome')
+    }
+  })
+  .catch(function (error) {
+    console.log('signed in Fail');
+    // if(response.status !== 200 && response.status !== null){
+      let message = "Username or Password is incorrect, please retry."
+      res.locals.message = message;
+      res.render('signin')
+    // }
+  });
+
+
 });
 
-app.get("/register", function(req, res){
+app.get("/register", messages,function(req, res){
   res.render("register");
+
+});
+
+app.post("/register", function(req, res){
+  let registerFirstName_    =       req.body.registerFirstName;
+  let registerLastName_     =       req.body.registerLastName;
+  let registerEmailAddress_ =       req.body.registerEmailAddress;
+  let registerPhone_ = req.body.registerPhone;
+  let registerUsername_     =       req.body.registerUsername;
+  let registerPassword_     =       req.body.registerPassword;
+  let registerAddress1_     =       req.body.registerAddress1;
+  let registerAddress2_     =       req.body.registerAddress2;
+  let registerInputCity_    =       req.body.registerInputCity;
+  let registerInputState_   =       req.body.registerInputState;
+  let registerInputZip_     =       req.body.registerInputZip;
+
+  const body={
+    username : registerUsername_,
+    firstname: registerFirstName_,
+    lastname: registerLastName_,
+    phone: registerPhone_,
+    email: registerEmailAddress_,
+    password: registerPassword_,
+    address: {
+        address: registerAddress1_,
+        address2: registerAddress2_,
+        city: registerInputCity_,
+        zipCode: registerInputZip_,
+        country: "USA",
+        state: registerInputZip_
+    }
+  }
+
+  const userNameVerify= {
+    username : registerUsername_
+  }
+
+  axios.post( `${localhost}/Account/VerifyExist`,
+  userNameVerify
+  )
+  .then(function (response) {
+    console.log('User Name Verification Success');
+
+    axios.post( `${localhost}/Account/CreateAccount`,
+    body
+    )
+    .then(function (response) {
+      console.log('createAccount Success');
+
+      let message = "Account has been successfully Created!"
+      res.locals.message = message;
+
+      res.redirect('/signin')
+    })
+    .catch(function (error) {
+      console.log('Create Account Error');
+      let message = "Account has existed, please change the username and try again!"
+      res.locals.message = message;
+
+      res.render('register')
+    });
+
+
+  })
+  .catch(function (error) {
+    console.log(error);
+
+  });
+
+
 });
 
 app.post("/register", function(req, res){
@@ -74,23 +182,38 @@ app.post("/customerservice", function(req, res){
 
 
 app.get("/signedonhome", function(req, res){
-  const myBook1 = new modulate.getbookItemList("Islamic book", "Suleiman Abdul Jabar", "$35")
-  res.render("signedonhome", {bookListItemsCount: myBook1.counting, bookListTitle : myBook1.title, bookListPrice: myBook1.price});
+
+  axios.get(`${localhost}/Book/Books`)
+  .then(function (response) {
+    // handle success
+    console.log('status: ',response.status);
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+
+  axios.get(`${localhost}/Category/Category/Fiqh`)
+  .then(function (response) {
+    // handle success
+    console.log('status: ',response.status);
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+
+  const myUserName = "Shang";
+  const day = date.getDate();
+  res.render("signedonhome", {userName: myUserName, todayToday: day});
 });
+
 
 app.post("/signedonhome", function(req, res){
+
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
 app.listen(3030, function() {
