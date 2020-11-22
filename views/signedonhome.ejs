@@ -46,7 +46,7 @@
             </span>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">LOG OUT</a>
+            <a class="nav-link" href="/">LOG OUT</a>
           </li>
         </ul>
       </div>
@@ -66,12 +66,8 @@
           <div class="col-lg-8 mx-auto">
             <% for(var i=0;i<newListItems.length;i++) { %>
             <div class="Each-book">
-              <!-- List group-->
               <ul class="list-group shadow">
-
-                <!-- list group item-->
                 <li class="list-group-item">
-                  <!-- Custom content-->
                   <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                     <div class="media-body order-2 order-lg-1">
                       <h5 class="mt-0 font-weight-bold mb-2"> <%= newListItems[i].title %> </h5>
