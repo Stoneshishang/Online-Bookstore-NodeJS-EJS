@@ -154,11 +154,24 @@ app.post("/customerservice", function(req, res){
 
 app.get("/signedonhome", function(req, res){
 
+ 
+	  
+  const myUserName = "Shang";
+  const day = date.getDate();
+  res.render("signedonhome", {userName: myUserName, todayToday: day});
+});
+
+
+app.post("/signedonhome", function(req, res){
+
+  const bookAuthor= req.body.searchByName;
+  console.log('bookAuthor Input is: ', bookAuthor);
+
   axios.get(`${localhost}/Book/Books`)
   .then(function (response) {
     // handle success
     console.log('status: ',response.status);
-    console.log(response.data);
+    // console.log(response.data);
   })
   .catch(function (error) {
     // handle error
@@ -169,21 +182,12 @@ app.get("/signedonhome", function(req, res){
   .then(function (response) {
     // handle success
     console.log('status: ',response.status);
-    console.log(response.data);
+    // console.log(response.data);
   })
   .catch(function (error) {
     // handle error
     console.log(error);
   })
-	  
-  const myUserName = "Shang";
-  const day = date.getDate();
-  res.render("signedonhome", {userName: myUserName, todayToday: day});
-});
-
-
-app.post("/signedonhome", function(req, res){
-
 });
 
 
