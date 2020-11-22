@@ -16,6 +16,7 @@ const app = express();
 app.set('view engine', 'ejs');
 //use body parser
 app.use(bodyParser.urlencoded({extended: true}));
+const modulate = require(__dirname + "/modular.js");
 //let express know that static files are held in the public folder
 app.use(express.static("public"));
 
@@ -24,6 +25,8 @@ const messages = (req,res,next) =>{
   res.locals.message = message;
   next()
 }
+
+
 
 app.get("/", function(req, res){
 
@@ -36,12 +39,12 @@ app.get("/signin", messages, function(req, res){
 });
 
 app.post("/signin", function(req, res){
- 
+
  let logOnUserName_    = req.body.userName;
  let logOnPassword_ = req.body.logOnPassword;
 
 
-  const body1={ 
+  const body1={
     username : logOnUserName_,
     password : logOnPassword_
   };
@@ -64,7 +67,7 @@ app.post("/signin", function(req, res){
     // }
   });
 
-  
+
 });
 
 app.get("/register", messages,function(req, res){
@@ -120,7 +123,7 @@ app.post("/register", function(req, res){
 
       let message = "Account has been successfully Created!"
       res.locals.message = message;
-  
+
       res.redirect('/signin')
     })
     .catch(function (error) {
@@ -131,14 +134,37 @@ app.post("/register", function(req, res){
       res.render('register')
     });
 
-    
+
   })
   .catch(function (error) {
     console.log(error);
-    
-  });
- 
 
+  });
+
+
+});
+
+app.post("/register", function(req, res){
+  let registerFirstName_    =       req.body.registerFirstName;
+  let registerLastName_     =       req.body.registerLastName;
+  let registerEmailAddress_ =       req.body.registerEmailAddress;
+  let registerUsername_     =       req.body.registerUsername;
+  let registerPassword_     =       req.body.registerPassword;
+  let registerAddress1_     =       req.body.registerAddress1;
+  let registerAddress2_     =       req.body.registerAddress2;
+  let registerInputCity_    =       req.body.registerInputCity;
+  let registerInputState_   =       req.body.registerInputState;
+  let registerInputZip_     =       req.body.registerInputZip;
+  console.log(registerFirstName_);
+  console.log(registerLastName_);
+  console.log(registerEmailAddress_);
+  console.log(registerUsername_);
+  console.log(registerPassword_);
+  console.log(registerAddress1_);
+  console.log(registerAddress2_);
+  console.log(registerInputCity_);
+  console.log(registerInputState_);
+  console.log(registerInputZip_);
 });
 
 app.get("/customerservice", function(req, res){
@@ -149,16 +175,19 @@ app.post("/customerservice", function(req, res){
   let custServEmail_       = req.body.custServEmail;
   let custServOrderNumber_ = req.body.custServOrderNumber;
   let custServText_        = req.body.custServText;
+  console.log(custServEmail_);
+  console.log(custServOrderNumber_);
+  console.log(custServText_);
 });
 
 
 app.get("/signedonhome", function(req, res){
 
- 
-	  
-  const myUserName = "Shang";
-  const day = date.getDate();
-  res.render("signedonhome", {userName: myUserName, todayToday: day});
+  const myUserFirstName = modulate.getUserFirstName();
+  const day             = modulate.getDate();
+  const Books           = modulate.getbookInfo();
+  
+  res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: Books});
 });
 
 
@@ -188,7 +217,11 @@ app.post("/signedonhome", function(req, res){
     // handle error
     console.log(error);
   })
+
+  
+  
 });
+
 
 
 app.listen(3030, function() {

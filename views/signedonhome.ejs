@@ -1,4 +1,4 @@
-!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -10,6 +10,9 @@
   <link href="/images/favicon_io/favicon-32x32.png" rel="icon">
   <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="/css/styles.css" rel="stylesheet">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <!-- font awesome script for icon used-->
   <script src="https://kit.fontawesome.com/d48db10d3a.js" crossorigin="anonymous"></script>
 </head>
@@ -38,6 +41,11 @@
             <a class="nav-link" href="#">MY ACCOUNT</a>
           </li>
           <li class="nav-item">
+            <span style="color: Dodgerblue;">
+              <i class="fas fa-shopping-cart fa-3x"></i>
+            </span>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">LOG OUT</a>
           </li>
         </ul>
@@ -46,37 +54,50 @@
   </header>
 
   <main role="main">
-
-    <div class="container">
-
-        <div class="row wow fadeIn" data-wow-delay="0.2s">
-            <div class="col-md-12">
-                <div class="jumbotron">
-                  <p></p>
-                  <p></p>
-                  <p></p>
-                  <p></p>
-                    <h1 class="h1-responsive">Hello, <%=userName%> </h1>
-                    <br>
-                    <h2> <%= todayToday %> </h2>
-                    <hr>
-                    <p>Search for Islamic books either by books title or book author (...by clicking the "Browse by Author" button)</p>
-                    <!-- Search form -->
-                    <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2">
-                      <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
-                        aria-label="Search" name="searchByName">
-                      <i class="fas fa-search" aria-hidden="true"></i>
-                      <div>
-                        <p></p>
-                        <p><button type="submit" class="btn btn-info">Browse by Author</button></p>
-                      </div>
-                    </form>
-                    
-                </div>
-            </div>
+    <div class="homePageBackground">
+      <div class="container py-5">
+        <div class="row text-center text-white mb-5">
+          <div class="col-lg-7 mx-auto">
+            <h1 class="display-4">Hello, <%= userFirstName %> </h1>
+            <p class="lead mb-0"> <%= todayDate %> </p>
+          </div>
         </div>
-    </div>
-    <hr class="extra-margins">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <% for(var i=0;i<newListItems.length;i++) { %>
+            <div class="Each-book">
+              <!-- List group-->
+              <ul class="list-group shadow">
+
+                <!-- list group item-->
+                <li class="list-group-item">
+                  <!-- Custom content-->
+                  <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                    <div class="media-body order-2 order-lg-1">
+                      <h5 class="mt-0 font-weight-bold mb-2"> <%= newListItems[i].title %> </h5>
+                      <p class="font-italic text-muted mb-0 small"> <%= newListItems[i].description  %> </p>
+                      <div class="d-flex align-items-center justify-content-between mt-1">
+                        <h6 class="font-weight-bold my-2"> <%= newListItems[i].price %> </h6>
+                        <ul class="list-inline small">
+                          <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                          <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                          <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                          <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                          <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
+                        </ul>
+                      </div>
+                    </div><img src="/images/bookImage.jpg" alt="Placeholder Book Image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                  </div>
+                  <div class="add-to-cart">
+                    <a href="#" class="default-btn">Add to Cart</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
   </main>
   <!-- FOOTER -->
   <div class="footer-padding"></div>
