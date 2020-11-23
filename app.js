@@ -26,7 +26,7 @@ const messages = (req,res,next) =>{
   next()
 }
 
-const Books = new Object();
+
 
 app.get("/", function(req, res){
 
@@ -183,11 +183,12 @@ app.post("/customerservice", function(req, res){
 
 app.get("/signedonhome", function(req, res){
 
+  
   axios.get(`${localhost}/Book/Books`)
   .then(function (response) {
     // handle success
-    console.log('status: ',response.status);
-    console.log(response.data);
+    // console.log('status: ',response.status);
+    // console.log(response.data);
   })
   .catch(function (error) {
     // handle error
@@ -197,24 +198,30 @@ app.get("/signedonhome", function(req, res){
   axios.get(`${localhost}/Category/Category/Fiqh`)
   .then(function (response) {
     // handle success
-    console.log('status: ',response.status);
-    console.log(response.data);
+    // console.log('status: ',response.status);
+    // console.log(response.data);
   })
   .catch(function (error) {
     // handle error
     console.log(error);
   })
 
+
   const myUserFirstName = modulate.getUserFirstName();
   const day             = modulate.getDate();
   const Books           = modulate.getbookInfo();
+
   res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: Books});
 });
 
 
 app.post("/signedonhome", function(req, res){
 
+  const bookAuthor= req.body.searchByName;
+  console.log('bookAuthor Input is: ', bookAuthor);
+
 });
+
 
 
 app.listen(3030, function() {
