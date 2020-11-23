@@ -24,46 +24,22 @@ exports.getDay = function() {
 
 exports.getbookInfo = function(){
  
-  let bookList =[];
-
-  axios.get(`${localhost}/Book/Books`)
+  return ( axios.get(`${localhost}/Book/Books`)
   .then(function (response) {
     // handle success
     console.log('status: ',response.status);
  
-     bookList = [
-        {
-          "title": "Islamic book of ABAIC 1",
-          "price": "$35",
-          "Author": "Bakr Alsideeq",
-          "description": "The best Islamic book since slice bread"
-        },
-        {
-          "title": "Islamic book of ABAIC 2",
-          "price": "$76",
-          "Author": "Alsideeq Bakr",
-          "description": "The best Islamic book since the last best Islamic book"
-        },
-        {
-          "title": "Islamic book of ABAIC 3",
-          "price": "$100",
-          "Author": "The Islamic center itself",
-          "description": ""
-        }
-      ];
+     let bookList = response.data;
 
-     console.log(bookList);
-
+    //  console.log('booklist is: ', bookList);
      return bookList;
   })
   .catch(function (error) {
     // handle error
     console.log(error);
-  })
-
-  console.log('booklist is: ', bookList);
-
-
+  }))
+   // console.log('booklist is: ', bookList);
+   
 }
 
 exports.getUserFirstName = function(){

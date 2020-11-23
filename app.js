@@ -183,35 +183,17 @@ app.post("/customerservice", function(req, res){
 
 app.get("/signedonhome", function(req, res){
 
-  
-  axios.get(`${localhost}/Book/Books`)
-  .then(function (response) {
-    // handle success
-    // console.log('status: ',response.status);
-    // console.log(response.data);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-
-  axios.get(`${localhost}/Category/Category/Fiqh`)
-  .then(function (response) {
-    // handle success
-    // console.log('status: ',response.status);
-    // console.log(response.data);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-
-
   const myUserFirstName = modulate.getUserFirstName();
   const day             = modulate.getDate();
-  const Books           = modulate.getbookInfo();
 
-  res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: Books});
+  modulate.getbookInfo().then((response) =>{
+    res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response});
+  }
+  );
+
+  console.log("myUserFirstName is: ", myUserFirstName);
+
+  
 });
 
 
