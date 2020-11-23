@@ -128,44 +128,19 @@ app.post("/register", function(req, res){
     })
     .catch(function (error) {
       console.log('Create Account Error');
+      console.log(error);
       let message = "Account has existed, please change the username and try again!"
       res.locals.message = message;
 
       res.render('register')
     });
-
-
   })
   .catch(function (error) {
     console.log(error);
-
   });
 
-
 });
 
-app.post("/register", function(req, res){
-  let registerFirstName_    =       req.body.registerFirstName;
-  let registerLastName_     =       req.body.registerLastName;
-  let registerEmailAddress_ =       req.body.registerEmailAddress;
-  let registerUsername_     =       req.body.registerUsername;
-  let registerPassword_     =       req.body.registerPassword;
-  let registerAddress1_     =       req.body.registerAddress1;
-  let registerAddress2_     =       req.body.registerAddress2;
-  let registerInputCity_    =       req.body.registerInputCity;
-  let registerInputState_   =       req.body.registerInputState;
-  let registerInputZip_     =       req.body.registerInputZip;
-  console.log(registerFirstName_);
-  console.log(registerLastName_);
-  console.log(registerEmailAddress_);
-  console.log(registerUsername_);
-  console.log(registerPassword_);
-  console.log(registerAddress1_);
-  console.log(registerAddress2_);
-  console.log(registerInputCity_);
-  console.log(registerInputState_);
-  console.log(registerInputZip_);
-});
 
 app.get("/customerservice", function(req, res){
   res.render("customerservice");
@@ -183,9 +158,9 @@ app.post("/customerservice", function(req, res){
 
 app.get("/signedonhome", function(req, res){
 
-  const myUserFirstName = modulate.getUserFirstName();
+  let myUserFirstName =modulate.getUserFirstName();
   const day             = modulate.getDate();
-
+  //access then value inside of the axios.get.then() from modular.js
   modulate.getbookInfo().then((response) =>{
     res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response});
   }
@@ -193,7 +168,6 @@ app.get("/signedonhome", function(req, res){
 
   console.log("myUserFirstName is: ", myUserFirstName);
 
-  
 });
 
 

@@ -27,7 +27,7 @@ exports.getbookInfo = function(){
   return ( axios.get(`${localhost}/Book/Books`)
   .then(function (response) {
     // handle success
-    console.log('status: ',response.status);
+    console.log('getBookInfo status: ',response.status);
  
      let bookList = response.data;
 
@@ -39,11 +39,27 @@ exports.getbookInfo = function(){
     console.log(error);
   }))
    // console.log('booklist is: ', bookList);
-   
+
 }
 
 exports.getUserFirstName = function(){
-    const myFirstName = "AhmedShangAbi";
+
+  //   return ( axios.get(`${localhost}/Account/Users`)
+  // .then(function (response) {
+  //   // handle success
+  //   console.log('status: ',response.status);
+ 
+  //    let userFname = response.data;
+
+  //    console.log('booklist is: ', userFname);
+  //    return userFname;
+  // })
+  // .catch(function (error) {
+  //   // handle error
+  //   console.log(error);
+  // }))
+
+  const myFirstName = "Shang Testing"
 
     return myFirstName;
 }

@@ -62,6 +62,15 @@
             <p class="lead mb-0"> <%= todayDate %> </p>
           </div>
         </div>
+        <div class ="filter"> 
+          <form action="">
+            <label> Filter by: </label>
+            <select>
+              <option value="category">Category</option>
+            </select>
+            <button type="submit">Submit</button>
+          </form> 
+        </div>
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <% for(var i=0;i<newListItems.length;i++) { %>
