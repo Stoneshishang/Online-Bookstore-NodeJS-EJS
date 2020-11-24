@@ -5,6 +5,7 @@ const _ = require("lodash");
 const axios = require('axios');
 const { localhost } = require('./config');
 const { response } = require("express");
+const { initial } = require("lodash");
 const date = require(__dirname + "/date.js");
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
@@ -79,7 +80,7 @@ app.post("/register", function(req, res){
   let registerFirstName_    =       req.body.registerFirstName;
   let registerLastName_     =       req.body.registerLastName;
   let registerEmailAddress_ =       req.body.registerEmailAddress;
-  let registerPhone_ = req.body.registerPhone;
+  let registerPhone_        =       req.body.registerPhone;
   let registerUsername_     =       req.body.registerUsername;
   let registerPassword_     =       req.body.registerPassword;
   let registerAddress1_     =       req.body.registerAddress1;
@@ -158,26 +159,35 @@ app.post("/customerservice", function(req, res){
 
 app.get("/signedonhome", function(req, res){
 
-  let myUserFirstName =modulate.getUserFirstName();
+  const initialRenderBookList =`${localhost}/Book/Books`
+  const myUserFirstName =modulate.getUserFirstName();
   const day             = modulate.getDate();
   //access then value inside of the axios.get.then() from modular.js
-  modulate.getbookInfo().then((response) =>{
+  modulate.getbookInfo(initialRenderBookList).then((response) =>{
     res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response});
   }
   );
-
-  console.log("myUserFirstName is: ", myUserFirstName);
 
 });
 
 
 app.post("/signedonhome", function(req, res){
 
-  const bookAuthor= req.body.searchByName;
-  console.log('bookAuthor Input is: ', bookAuthor);
+  let Category = req.body.Category;
+  let Author =  req.body.Author;
 
+  console.log("category is: ", Category);
+  console.log("Author is: ", Author);
+
+  const filterURL = `${localhost}/Book/Books?Category=${Category}&Author=${Author}`
+  const myUserFirstName =modulate.getUserFirstName();
+  const day             = modulate.getDate();
+
+  modulate.getbookInfo(filterURL).then((response) =>{
+    res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response});
+  }
+);
 });
-
 
 
 app.listen(3030, function() {

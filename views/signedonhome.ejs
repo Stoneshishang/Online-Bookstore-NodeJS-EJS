@@ -63,12 +63,13 @@
           </div>
         </div>
         <div class ="filter"> 
-          <form action="">
-            <label> Filter by: </label>
-            <select>
-              <option value="category">Category</option>
-            </select>
-            <button type="submit">Submit</button>
+          <form method="post">
+            <p> Filter by: </p>
+            <label for="">Category: </label>
+            <input type="text" class="form-control" id="Category" placeholder="Category" name="Category">
+            <label for="">Author: </label>
+            <input type="text" class="form-control" id="Author" placeholder="Author" name="Author">
+            <button type="submit" value="accept" class="btn btn-primary">Submit</button>
           </form> 
         </div>
         <div class="row">

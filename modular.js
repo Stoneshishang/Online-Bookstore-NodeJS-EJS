@@ -22,9 +22,10 @@ exports.getDay = function() {
   return today.toLocaleDateString("en-US", options);
 };
 
-exports.getbookInfo = function(){
+
+exports.getbookInfo = function(BookListURL){
  
-  return ( axios.get(`${localhost}/Book/Books`)
+  return ( axios.get(BookListURL)
   .then(function (response) {
     // handle success
     console.log('getBookInfo status: ',response.status);
