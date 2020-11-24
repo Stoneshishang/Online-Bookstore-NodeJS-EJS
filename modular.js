@@ -28,7 +28,7 @@ exports.getbookInfo = function(BookListURL){
   return ( axios.get(BookListURL)
   .then(function (response) {
     // handle success
-    console.log('getBookInfo status: ',response.status);
+    // console.log('getBookInfo status: ',response.status);
  
      let bookList = response.data;
 
@@ -44,24 +44,26 @@ exports.getbookInfo = function(BookListURL){
 }
 
 
-exports.getUserFirstName = function(){
+exports.getUserFirstName = function(userInfoURL){
 
-  //   return ( axios.get(`${localhost}/Account/Users`)
-  // .then(function (response) {
-  //   // handle success
-  //   console.log('status: ',response.status);
+    return ( axios.post(userInfoURL)
+  .then(function (response) {
+    // handle success
+    console.log('status: ',response.status);
  
-  //    let userFname = response.data;
+     let userFname = response.data.firstname;
 
-  //    console.log('booklist is: ', userFname);
-  //    return userFname;
-  // })
-  // .catch(function (error) {
-  //   // handle error
-  //   console.log(error);
-  // }))
+     console.log('User First Name is: ', userFname);
+     return userFname;
+  })
+  .catch(function (error) {
+    // handle error
+    console.log('error happened');
+    console.log(error);
+  })
+  )
 
-  const myFirstName = "Shang Testing"
+  // const myFirstName = "Shang Testing"
 
-    return myFirstName;
+  //   return myFirstName;
 }

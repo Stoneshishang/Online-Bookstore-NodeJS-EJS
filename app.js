@@ -27,8 +27,6 @@ const messages = (req,res,next) =>{
   next()
 }
 
-
-
 app.get("/", function(req, res){
 
     res.render("home");
@@ -56,6 +54,7 @@ app.post("/signin", function(req, res){
   .then(function (response) {
     console.log('login success');
     if(response.status == 200){
+      
       res.redirect('/signedonhome')
     }
   })
@@ -76,7 +75,7 @@ app.get("/register", messages,function(req, res){
 
 });
 
-app.post("/register", function(req, res){
+app.post("/register", messages, function(req, res){
   let registerFirstName_    =       req.body.registerFirstName;
   let registerLastName_     =       req.body.registerLastName;
   let registerEmailAddress_ =       req.body.registerEmailAddress;
@@ -120,12 +119,12 @@ app.post("/register", function(req, res){
     body
     )
     .then(function (response) {
+     
+      res.redirect('signin')
       console.log('createAccount Success');
-
       let message = "Account has been successfully Created!"
       res.locals.message = message;
 
-      res.redirect('/signin')
     })
     .catch(function (error) {
       console.log('Create Account Error');
@@ -157,24 +156,27 @@ app.post("/customerservice", function(req, res){
 });
 
 
-app.get("/signedonhome", function(req, res){
+app.get("/signedonhome", messages, function(req, res){
 
   const categoryURL = `${localhost}/Category/Categories`
   const initialRenderBookList =`${localhost}/Book/Books`
-  const myUserFirstName =modulate.getUserFirstName();
+  // const myUserFirstName =modulate.getUserFirstName();
   const day             = modulate.getDate();
+  const userInfoURL = `${localhost}/Security/Login`;
+
   //access then value inside of the axios.get.then() from modular.js
-  modulate.getbookInfo(initialRenderBookList).then((response) =>{
-    modulate.getbookInfo(categoryURL).then((response1) =>{
-    res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response, categoryList: response1});
-  }
-  );
-  }
-)
+  modulate.getUserFirstName(userInfoURL).then((fName)=>{
+    console.log('fName is: ', JSON.stringify(fName));
+    modulate.getbookInfo(initialRenderBookList).then((response) =>{
+      modulate.getbookInfo(categoryURL).then((response1) =>{
+      res.render("signedonhome", {userFirstName: fName, todayDate: day, newListItems: response, categoryList: response1});
+    });
+    })
+   })
 });
 
 
-app.post("/signedonhome", function(req, res){
+app.post("/signedonhome", messages, function(req, res){
 
   let Category = req.body.category;
   let Author =  req.body.author;
@@ -182,19 +184,27 @@ app.post("/signedonhome", function(req, res){
   console.log("category is: ", Category);
   console.log("Author is: ", Author);
 
-  const categoryURL = `${localhost}/Category/Categories`
-  const filterURL = `${localhost}/Book/Books?Category=${Category}&Author=${Author}`
-  const myUserFirstName =modulate.getUserFirstName();
+  const categoryURL = `${localhost}/Category/Categories`;
+  const filterURL = `${localhost}/Book/Books?Category=${Category}&Author=${Author}`;
+  const fName = modulate.getUserFirstName();
   const day             = modulate.getDate();
 
-
-  modulate.getbookInfo(filterURL).then((response) =>{
-    modulate.getbookInfo(categoryURL).then((response1) =>{
-      res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response, categoryList: response1});   
-     })
-    
-  }
-);
+  
+    modulate.getbookInfo(filterURL).then((response) =>{
+      modulate.getbookInfo(categoryURL).then((response1) =>{
+        // console.log('repsonse is: ', response);
+       if(response == []){
+        let message = "No match found, please search again!"
+        console.log('NOT MATCH FOUND ENTERED!');
+        res.locals.message = message;
+        
+       }else if(response !==[]){
+        res.render("signedonhome", {userFirstName: fName, todayDate: day, newListItems: response, categoryList: response1});
+       }    
+       })
+    }
+  );
+  
 });
 
 
