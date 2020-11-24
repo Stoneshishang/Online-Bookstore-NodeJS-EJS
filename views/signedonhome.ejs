@@ -46,7 +46,7 @@
             </span>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">LOG OUT</a>
+            <a class="nav-link" href="/">LOG OUT</a>
           </li>
         </ul>
       </div>
@@ -62,22 +62,31 @@
             <p class="lead mb-0"> <%= todayDate %> </p>
           </div>
         </div>
+        <div class ="filter"> 
+          <form method="post">
+            <label for="category">Filter by -- Category:</label>
+              <select name="category" id="category">
+                <% for(var i=0;i<categoryList.length;i++) { %>
+                <option value="<%= categoryList[i].title %>"><%= categoryList[i].title %></option>
+                <% } %>
+              </select>
+            <label >Author: </label>
+            <input type="text" id="author" placeholder="Author" name="author">
+            <button type="submit" value="accept" class="btn btn-primary">Submit</button>
+          </form> 
+        </div>
         <div class="row">
           <div class="col-lg-8 mx-auto">
             <% for(var i=0;i<newListItems.length;i++) { %>
             <div class="Each-book">
-              <!-- List group-->
               <ul class="list-group shadow">
-
-                <!-- list group item-->
                 <li class="list-group-item">
-                  <!-- Custom content-->
                   <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                     <div class="media-body order-2 order-lg-1">
                       <h5 class="mt-0 font-weight-bold mb-2"> <%= newListItems[i].title %> </h5>
                       <p class="font-italic text-muted mb-0 small"> <%= newListItems[i].description  %> </p>
                       <div class="d-flex align-items-center justify-content-between mt-1">
-                        <h6 class="font-weight-bold my-2"> <%= newListItems[i].price %> </h6>
+                        <h6 class="font-weight-bold my-2"> $<%= newListItems[i].price %> </h6>
                         <ul class="list-inline small">
                           <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
                           <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>

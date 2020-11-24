@@ -5,6 +5,7 @@ const _ = require("lodash");
 const axios = require('axios');
 const { localhost } = require('./config');
 const { response } = require("express");
+const { initial } = require("lodash");
 const date = require(__dirname + "/date.js");
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
@@ -79,7 +80,7 @@ app.post("/register", function(req, res){
   let registerFirstName_    =       req.body.registerFirstName;
   let registerLastName_     =       req.body.registerLastName;
   let registerEmailAddress_ =       req.body.registerEmailAddress;
-  let registerPhone_ = req.body.registerPhone;
+  let registerPhone_        =       req.body.registerPhone;
   let registerUsername_     =       req.body.registerUsername;
   let registerPassword_     =       req.body.registerPassword;
   let registerAddress1_     =       req.body.registerAddress1;
@@ -128,44 +129,19 @@ app.post("/register", function(req, res){
     })
     .catch(function (error) {
       console.log('Create Account Error');
+      console.log(error);
       let message = "Account has existed, please change the username and try again!"
       res.locals.message = message;
 
       res.render('register')
     });
-
-
   })
   .catch(function (error) {
     console.log(error);
-
   });
 
-
 });
 
-app.post("/register", function(req, res){
-  let registerFirstName_    =       req.body.registerFirstName;
-  let registerLastName_     =       req.body.registerLastName;
-  let registerEmailAddress_ =       req.body.registerEmailAddress;
-  let registerUsername_     =       req.body.registerUsername;
-  let registerPassword_     =       req.body.registerPassword;
-  let registerAddress1_     =       req.body.registerAddress1;
-  let registerAddress2_     =       req.body.registerAddress2;
-  let registerInputCity_    =       req.body.registerInputCity;
-  let registerInputState_   =       req.body.registerInputState;
-  let registerInputZip_     =       req.body.registerInputZip;
-  console.log(registerFirstName_);
-  console.log(registerLastName_);
-  console.log(registerEmailAddress_);
-  console.log(registerUsername_);
-  console.log(registerPassword_);
-  console.log(registerAddress1_);
-  console.log(registerAddress2_);
-  console.log(registerInputCity_);
-  console.log(registerInputState_);
-  console.log(registerInputZip_);
-});
 
 app.get("/customerservice", function(req, res){
   res.render("customerservice");
@@ -183,45 +159,43 @@ app.post("/customerservice", function(req, res){
 
 app.get("/signedonhome", function(req, res){
 
-  const myUserFirstName = modulate.getUserFirstName();
+  const categoryURL = `${localhost}/Category/Categories`
+  const initialRenderBookList =`${localhost}/Book/Books`
+  const myUserFirstName =modulate.getUserFirstName();
   const day             = modulate.getDate();
-  const Books           = modulate.getbookInfo();
-  
-  res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: Books});
+  //access then value inside of the axios.get.then() from modular.js
+  modulate.getbookInfo(initialRenderBookList).then((response) =>{
+    modulate.getbookInfo(categoryURL).then((response1) =>{
+    res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response, categoryList: response1});
+  }
+  );
+  }
+)
 });
 
 
 app.post("/signedonhome", function(req, res){
 
-  const bookAuthor= req.body.searchByName;
-  console.log('bookAuthor Input is: ', bookAuthor);
+  let Category = req.body.category;
+  let Author =  req.body.author;
 
-  axios.get(`${localhost}/Book/Books`)
-  .then(function (response) {
-    // handle success
-    console.log('status: ',response.status);
-    // console.log(response.data);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
+  console.log("category is: ", Category);
+  console.log("Author is: ", Author);
 
-  axios.get(`${localhost}/Category/Category/Fiqh`)
-  .then(function (response) {
-    // handle success
-    console.log('status: ',response.status);
-    // console.log(response.data);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
+  const categoryURL = `${localhost}/Category/Categories`
+  const filterURL = `${localhost}/Book/Books?Category=${Category}&Author=${Author}`
+  const myUserFirstName =modulate.getUserFirstName();
+  const day             = modulate.getDate();
 
-  
-  
+
+  modulate.getbookInfo(filterURL).then((response) =>{
+    modulate.getbookInfo(categoryURL).then((response1) =>{
+      res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response, categoryList: response1});   
+     })
+    
+  }
+);
 });
-
 
 
 app.listen(3030, function() {

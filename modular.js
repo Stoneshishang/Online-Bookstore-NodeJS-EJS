@@ -1,3 +1,7 @@
+const axios = require('axios');
+const { localhost } = require('./config');
+
+
 exports.getDate = function(){
     const today = new Date();
     const options = {
@@ -18,32 +22,46 @@ exports.getDay = function() {
   return today.toLocaleDateString("en-US", options);
 };
 
-exports.getbookInfo = function(){
-  const bookList = [
-    {
-      "title": "Islamic book of ABAIC 1",
-      "price": "$35",
-      "Author": "Bakr Alsideeq",
-      "description": "The best Islamic book since slice bread"
-    },
-    {
-      "title": "Islamic book of ABAIC 2",
-      "price": "$76",
-      "Author": "Alsideeq Bakr",
-      "description": "The best Islamic book since the last best Islamic book"
-    },
-    {
-      "title": "Islamic book of ABAIC 3",
-      "price": "$100",
-      "Author": "The Islamic center itself",
-      "description": ""
-    }
-  ]
- return bookList;
+
+exports.getbookInfo = function(BookListURL){
+ 
+  return ( axios.get(BookListURL)
+  .then(function (response) {
+    // handle success
+    console.log('getBookInfo status: ',response.status);
+ 
+     let bookList = response.data;
+
+    //  console.log('booklist is: ', bookList);
+     return bookList;
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  }))
+   // console.log('booklist is: ', bookList);
+
 }
 
+
 exports.getUserFirstName = function(){
-    const myFirstName = "AhmedShangAbi";
+
+  //   return ( axios.get(`${localhost}/Account/Users`)
+  // .then(function (response) {
+  //   // handle success
+  //   console.log('status: ',response.status);
+ 
+  //    let userFname = response.data;
+
+  //    console.log('booklist is: ', userFname);
+  //    return userFname;
+  // })
+  // .catch(function (error) {
+  //   // handle error
+  //   console.log(error);
+  // }))
+
+  const myFirstName = "Shang Testing"
 
     return myFirstName;
 }
