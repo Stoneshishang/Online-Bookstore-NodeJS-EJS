@@ -159,32 +159,40 @@ app.post("/customerservice", function(req, res){
 
 app.get("/signedonhome", function(req, res){
 
+  const categoryURL = `${localhost}/Category/Categories`
   const initialRenderBookList =`${localhost}/Book/Books`
   const myUserFirstName =modulate.getUserFirstName();
   const day             = modulate.getDate();
   //access then value inside of the axios.get.then() from modular.js
   modulate.getbookInfo(initialRenderBookList).then((response) =>{
-    res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response});
+    modulate.getbookInfo(categoryURL).then((response1) =>{
+    res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response, categoryList: response1});
   }
   );
-
+  }
+)
 });
 
 
 app.post("/signedonhome", function(req, res){
 
-  let Category = req.body.Category;
-  let Author =  req.body.Author;
+  let Category = req.body.category;
+  let Author =  req.body.author;
 
   console.log("category is: ", Category);
   console.log("Author is: ", Author);
 
+  const categoryURL = `${localhost}/Category/Categories`
   const filterURL = `${localhost}/Book/Books?Category=${Category}&Author=${Author}`
   const myUserFirstName =modulate.getUserFirstName();
   const day             = modulate.getDate();
 
+
   modulate.getbookInfo(filterURL).then((response) =>{
-    res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response});
+    modulate.getbookInfo(categoryURL).then((response1) =>{
+      res.render("signedonhome", {userFirstName: myUserFirstName, todayDate: day, newListItems: response, categoryList: response1});   
+     })
+    
   }
 );
 });

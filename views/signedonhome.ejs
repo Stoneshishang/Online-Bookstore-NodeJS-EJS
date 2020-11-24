@@ -64,11 +64,14 @@
         </div>
         <div class ="filter"> 
           <form method="post">
-            <p> Filter by: </p>
-            <label for="">Category: </label>
-            <input type="text" class="form-control" id="Category" placeholder="Category" name="Category">
-            <label for="">Author: </label>
-            <input type="text" class="form-control" id="Author" placeholder="Author" name="Author">
+            <label for="category">Filter by -- Category:</label>
+              <select name="category" id="category">
+                <% for(var i=0;i<categoryList.length;i++) { %>
+                <option value="<%= categoryList[i].title %>"><%= categoryList[i].title %></option>
+                <% } %>
+              </select>
+            <label >Author: </label>
+            <input type="text" id="author" placeholder="Author" name="author">
             <button type="submit" value="accept" class="btn btn-primary">Submit</button>
           </form> 
         </div>
