@@ -1,12 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const _ = require("lodash");
 const axios = require('axios');
 const { localhost } = require('./config');
-const { response } = require("express");
-const { initial } = require("lodash");
-const date = require(__dirname + "/date.js");
+
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
@@ -26,6 +22,9 @@ const messages = (req,res,next) =>{
   res.locals.message = message;
   next()
 }
+
+let userFname = '';
+const day = modulate.getDate();
 
 app.get("/", function(req, res){
 
@@ -48,31 +47,27 @@ app.post("/signin", function(req, res){
     password : logOnPassword_
   };
 
-  axios.post( `${localhost}/Security/Login`,
-  body1
-  )
+  axios.post( `${localhost}/Security/Login`, body1)
   .then(function (response) {
     console.log('login success');
     if(response.status == 200){
-      
+
+      userFname = response.data.firstname;
       res.redirect('/signedonhome')
     }
   })
   .catch(function (error) {
-    console.log('signed in Fail');
+    console.log(error);
     // if(response.status !== 200 && response.status !== null){
       let message = "Username or Password is incorrect, please retry."
       res.locals.message = message;
       res.render('signin')
     // }
   });
-
-
 });
 
 app.get("/register", messages,function(req, res){
   res.render("register");
-
 });
 
 app.post("/register", messages, function(req, res){
@@ -150,57 +145,31 @@ app.post("/customerservice", function(req, res){
   let custServEmail_       = req.body.custServEmail;
   let custServOrderNumber_ = req.body.custServOrderNumber;
   let custServText_        = req.body.custServText;
-  console.log(custServEmail_);
-  console.log(custServOrderNumber_);
-  console.log(custServText_);
 });
 
+
+const categoryURL = `${localhost}/Category/Categories`;
+const initialRenderBookList =`${localhost}/Book/Books`
 
 app.get("/signedonhome", messages, function(req, res){
-
-  const categoryURL = `${localhost}/Category/Categories`
-  const initialRenderBookList =`${localhost}/Book/Books`
-  // const myUserFirstName =modulate.getUserFirstName();
-  const day             = modulate.getDate();
-  const userInfoURL = `${localhost}/Security/Login`;
-
-  //access then value inside of the axios.get.then() from modular.js
-  modulate.getUserFirstName(userInfoURL).then((fName)=>{
-    console.log('fName is: ', JSON.stringify(fName));
-    modulate.getbookInfo(initialRenderBookList).then((response) =>{
-      modulate.getbookInfo(categoryURL).then((response1) =>{
-      res.render("signedonhome", {userFirstName: fName, todayDate: day, newListItems: response, categoryList: response1});
+    //access then value inside of the axios.get.then() from modular.js
+    modulate.getbookInfo(initialRenderBookList).then((bookList) =>{
+      modulate.getbookInfo(categoryURL).then((bookCategoryList) =>{
+      res.render("signedonhome", {userFirstName: userFname, todayDate: day, newListItems: bookList, categoryList: bookCategoryList});
     });
     })
-   })
 });
-
 
 app.post("/signedonhome", messages, function(req, res){
 
   let Category = req.body.category;
   let Author =  req.body.author;
 
-  console.log("category is: ", Category);
-  console.log("Author is: ", Author);
-
-  const categoryURL = `${localhost}/Category/Categories`;
-  const filterURL = `${localhost}/Book/Books?Category=${Category}&Author=${Author}`;
-  const fName = modulate.getUserFirstName();
-  const day             = modulate.getDate();
-
+  const filterURL = `${initialRenderBookList}?Category=${Category}&Author=${Author}`;
   
-    modulate.getbookInfo(filterURL).then((response) =>{
-      modulate.getbookInfo(categoryURL).then((response1) =>{
-        // console.log('repsonse is: ', response);
-       if(response == []){
-        let message = "No match found, please search again!"
-        console.log('NOT MATCH FOUND ENTERED!');
-        res.locals.message = message;
-        
-       }else if(response !==[]){
-        res.render("signedonhome", {userFirstName: fName, todayDate: day, newListItems: response, categoryList: response1});
-       }    
+    modulate.getbookInfo(filterURL).then((bookList) =>{
+      modulate.getbookInfo(categoryURL).then((bookCategoryList) =>{
+        res.render("signedonhome", {userFirstName: userFname, todayDate: day, newListItems: bookList, categoryList: bookCategoryList});
        })
     }
   );
