@@ -23,8 +23,19 @@ const messages = (req,res,next) =>{
   next()
 }
 
+const categoryURL = `${localhost}/Category/Categories`;
+const initialRenderBookList =`${localhost}/Book/Books`
+
 let userFname = '';
 const day = modulate.getDate();
+
+const renderSignedOnHome = (bookDisplayURL, categoryURL, res) =>{
+  modulate.getbookInfo(bookDisplayURL).then((bookList) =>{
+    modulate.getbookInfo(categoryURL).then((bookCategoryList) =>{
+    res.render("signedonhome", {userFirstName: userFname, todayDate: day, newListItems: bookList, categoryList: bookCategoryList});
+  });
+  })
+}
 
 app.get("/", function(req, res){
 
@@ -36,33 +47,29 @@ app.get("/signin", messages, function(req, res){
   res.render("signin");
 });
 
-app.post("/signin", function(req, res){
+app.post("/signin", messages, function(req, res){
 
  let logOnUserName_    = req.body.userName;
  let logOnPassword_ = req.body.logOnPassword;
-
 
   const body1={
     username : logOnUserName_,
     password : logOnPassword_
   };
 
-  axios.post( `${localhost}/Security/Login`, body1)
+   axios.post( `${localhost}/Security/Login`, body1)
   .then(function (response) {
     console.log('login success');
     if(response.status == 200){
-
       userFname = response.data.firstname;
       res.redirect('/signedonhome')
     }
   })
   .catch(function (error) {
     console.log(error);
-    // if(response.status !== 200 && response.status !== null){
-      let message = "Username or Password is incorrect, please retry."
+      message = "Username or Password is incorrect, please retry."
       res.locals.message = message;
       res.render('signin')
-    // }
   });
 });
 
@@ -115,16 +122,16 @@ app.post("/register", messages, function(req, res){
     )
     .then(function (response) {
      
-      res.redirect('signin')
       console.log('createAccount Success');
-      let message = "Account has been successfully Created!"
+      message = "Account has been successfully Created!"
       res.locals.message = message;
-
+      
+      res.redirect('signin')
     })
     .catch(function (error) {
       console.log('Create Account Error');
       console.log(error);
-      let message = "Account has existed, please change the username and try again!"
+      message = "Account has existed, please change the username and try again!"
       res.locals.message = message;
 
       res.render('register')
@@ -147,17 +154,10 @@ app.post("/customerservice", function(req, res){
   let custServText_        = req.body.custServText;
 });
 
-
-const categoryURL = `${localhost}/Category/Categories`;
-const initialRenderBookList =`${localhost}/Book/Books`
-
 app.get("/signedonhome", messages, function(req, res){
     //access then value inside of the axios.get.then() from modular.js
-    modulate.getbookInfo(initialRenderBookList).then((bookList) =>{
-      modulate.getbookInfo(categoryURL).then((bookCategoryList) =>{
-      res.render("signedonhome", {userFirstName: userFname, todayDate: day, newListItems: bookList, categoryList: bookCategoryList});
-    });
-    })
+    renderSignedOnHome(initialRenderBookList, categoryURL, res);
+
 });
 
 app.post("/signedonhome", messages, function(req, res){
@@ -166,14 +166,9 @@ app.post("/signedonhome", messages, function(req, res){
   let Author =  req.body.author;
 
   const filterURL = `${initialRenderBookList}?Category=${Category}&Author=${Author}`;
-  
-    modulate.getbookInfo(filterURL).then((bookList) =>{
-      modulate.getbookInfo(categoryURL).then((bookCategoryList) =>{
-        res.render("signedonhome", {userFirstName: userFname, todayDate: day, newListItems: bookList, categoryList: bookCategoryList});
-       })
-    }
-  );
-  
+
+  renderSignedOnHome(filterURL,categoryURL, res);
+   
 });
 
 
