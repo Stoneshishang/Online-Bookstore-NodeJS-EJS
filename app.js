@@ -15,7 +15,33 @@ const modulate = require(__dirname + "/modular.js");
 app.use(express.static("public"));
 
 
-const Books = new Object();
+let cartItemNumber = 0;
+let cartItems      = [];
+function funcClick(){
+  cartItemNumber++
+  return  cartItemNumber;
+}
+
+function priceTotal(){
+  var pTotal = 0;
+  for(var i in cartItems){
+    p = parseInt(cartItems[i].price);
+    pTotal += p;
+  }
+  return pTotal;
+}
+
+function getASpecificBook(givenID)
+{
+  const allBook = modulate.getbookInfo();
+  for(var i = 0; i < allBook.length; i++){
+    var thisBook = allBook[i];
+    if(givenID == thisBook.bookId){
+      theBook = thisBook
+   }
+  }
+ return theBook;
+}
 
 app.get("/", function(req, res){
   res.render("home");
@@ -74,16 +100,29 @@ app.post("/customerservice", function(req, res){
 
 
 app.get("/signedonhome", function(req, res){
-  const myBook1 = new modulate.getbookItemList("Islamic book", "Suleiman Abdul Jabar", "$35")
-  res.render("signedonhome", {bookListItemsCount: myBook1.counting, bookListTitle : myBook1.title, bookListPrice: myBook1.price});
+  const myUserFirstName = modulate.getUserFirstName();
+  const day             = modulate.getDate();
+  const Books           = modulate.getbookInfo();
+  res.render("signedonhome", {addToCartButtonNumber:cartItemNumber, userFirstName: myUserFirstName, todayDate: day, newListItems: Books});
 });
 
 app.post("/signedonhome", function(req, res){
+  bookID                  = req.body.thisButton;
+  const myBook            = getASpecificBook(bookID);
+  cartItems.push(myBook);
+  funcClick();
+  res.redirect("/signedonhome");
+});
+
+app.get("/checkout", function(req, res){
+  let storeTotalPrice = priceTotal();
+  res.render("checkout", {itemCartNumber:cartItemNumber, cartItemList: cartItems, itemsTotalPrice: storeTotalPrice});
 });
 
 
+app.post("/checkout", function(req, res){
 
-
+});
 
 
 
