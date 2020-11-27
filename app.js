@@ -17,17 +17,17 @@ const modulate = require(__dirname + "/modular.js");
 //let express know that static files are held in the public folder
 app.use(express.static("public"));
 
+
+const categoryURL = `${localhost}/Category/Categories`;
+const initialRenderBookList =`${localhost}/Book/Books`
+let userFname = '';
+const day = modulate.getDate();
+
 const messages = (req,res,next) =>{
   let message;
   res.locals.message = message;
   next()
 }
-
-const categoryURL = `${localhost}/Category/Categories`;
-const initialRenderBookList =`${localhost}/Book/Books`
-
-let userFname = '';
-const day = modulate.getDate();
 
 const renderSignedOnHome = (bookDisplayURL, categoryURL, res) =>{
   modulate.getbookInfo(bookDisplayURL).then((bookList) =>{
