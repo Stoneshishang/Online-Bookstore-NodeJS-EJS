@@ -41,10 +41,10 @@
             <a class="nav-link" href="#">MY ACCOUNT</a>
           </li>
           <li class="nav-item">
-              <span class="fa-stack fa-2x has-badge" id="buttonIncrement" bookSelectedCount="<%= addToCartButtonNumber %>">
+              <a href="/checkout"><span class="fa-stack fa-2x has-badge" href="/checkout" bookSelectedCount="<%= addToCartButtonNumber %>">
                 <i class="fa fa-circle fa-stack-2x"></i>
                 <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
-              </span>
+              </span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/">LOG OUT</a>
@@ -96,7 +96,7 @@
             <% } %>
           </div>
         </div>
-        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+        <a class="btn btn-primary btn-lg btn-block" href="/checkout" role="button">Go to cart</a>
       </div>
   </main>
 
