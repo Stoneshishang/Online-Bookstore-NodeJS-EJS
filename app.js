@@ -43,6 +43,34 @@ function getASpecificBook(givenID)
  return theBook;
 }
 
+function getBookByCategory(categoryID)
+{
+  bookCategory = [];
+  const allBook = modulate.getbookInfo();
+  for(var i = 0; i < allBook.length; i++){
+    var thisBook = allBook[i];
+    if(categoryID == thisBook.categoryId){
+      theBook = thisBook
+      bookCategory.push(theBook)
+   }
+  }
+ return bookCategory;
+}
+
+function getBookByAuthor(authorID)
+{
+  bookAuthor = [];
+  const allBook = modulate.getbookInfo();
+  for(var i = 0; i < allBook.length; i++){
+    var thisBook = allBook[i];
+    if(authorID == thisBook.authorId){
+      theBook = thisBook
+      bookAuthor.push(theBook)
+   }
+  }
+ return bookAuthor;
+}
+
 app.get("/", function(req, res){
   res.render("home");
 });
