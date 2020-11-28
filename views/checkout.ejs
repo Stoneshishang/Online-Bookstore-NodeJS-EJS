@@ -73,6 +73,9 @@
               <div>
                 <h6 class="my-0"> <%= cartItemList[i].title %> </h6>
                 <small class="text-muted"> <%= cartItemList[i].description  %> </small>
+                <form class="" action="/checkout" method="post">
+                  <small> <button class="btn btn-primary btn-sm  py-0" style="font-size: 0.8em;" name="removeItembutton" onclick='removeItemClick()' value=<%= cartItemList[i].bookId %> >Remove Item</button> </small>
+                </form>
               </div>
               <span class="text-muted"> $<%= cartItemList[i].price %> </span>
             </li>
@@ -221,6 +224,7 @@
                 <img class="mr-2" width="45px" src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg" alt="Visa">
                 <img class="mr-2" width="45px" src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg" alt="American Express">
                 <img class="mr-2" width="45px" src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg" alt="Mastercard">
+                <img class="mr-2" width="45px" src="https://mdbootstrap.com/wp-content/plugins/woocommerce-gateway-stripe/assets/images/discover.svg" alt="Discover">
               </div>
             </div>
 

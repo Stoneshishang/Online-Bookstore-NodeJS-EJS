@@ -15,11 +15,23 @@ const modulate = require(__dirname + "/modular.js");
 app.use(express.static("public"));
 
 
-let cartItemNumber = 0;
+
 let cartItems      = [];
+let cartItemNumber = cartItems.length;
 function funcClick(){
   cartItemNumber++
   return  cartItemNumber;
+}
+
+function removeItemClick(){
+  cartItemNumber--
+  return  cartItemNumber;
+}
+
+function reducecartItemsClick(thisbookID){
+   const cartItemsTemp     = cartItems.filter(d => d.bookId == thisbookID);
+   cartItems               = cartItemsTemp;
+  return  cartItems;
 }
 
 function priceTotal(){
@@ -135,7 +147,7 @@ app.get("/signedonhome", function(req, res){
 });
 
 app.post("/signedonhome", function(req, res){
-  bookID                  = req.body.thisButton;
+  bookID                  = req.body.userAddToCartButton;
   const myBook            = getASpecificBook(bookID);
   cartItems.push(myBook);
   funcClick();
@@ -149,7 +161,10 @@ app.get("/checkout", function(req, res){
 
 
 app.post("/checkout", function(req, res){
-
+  bookID                  = req.body.removeItembutton;
+  reducecartItemsClick(bookID);
+  removeItemClick();
+  res.redirect("/checkout");
 });
 
 
