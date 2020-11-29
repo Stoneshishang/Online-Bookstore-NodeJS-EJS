@@ -23,15 +23,17 @@ function funcClick(){
   return  cartItemNumber;
 }
 
-function removeItemClick(){
-  cartItemNumber--
-  return  cartItemNumber;
-}
 
-function reducecartItemsClick(thisbookID){
-   const cartItemsTemp     = cartItems.filter(d => d.bookId == thisbookID);
-   cartItems               = cartItemsTemp;
-  return  cartItems;
+function removecartItemsClick(arr, attr, value){
+  var i = arr.length;
+  while(i--){
+     if( arr[i]
+         && arr[i].hasOwnProperty(attr)
+         && (arguments.length > 2 && arr[i][attr] === value ) ){
+         arr.splice(i,1);
+     }
+  }
+  return arr;
 }
 
 function priceTotal(){
@@ -161,9 +163,9 @@ app.get("/checkout", function(req, res){
 
 
 app.post("/checkout", function(req, res){
-  bookID                  = req.body.removeItembutton;
-  reducecartItemsClick(bookID);
-  removeItemClick();
+  const bookID                  = req.body.removeItembutton;
+  removecartItemsClick(cartItems, 'bookId', bookID);
+  cartItemNumber                = cartItems.length;
   res.redirect("/checkout");
 });
 
