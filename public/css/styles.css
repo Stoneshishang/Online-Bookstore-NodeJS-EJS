@@ -29,7 +29,7 @@ body {
 }
 
 .footer-padding {
-  padding-bottom: 60px;
+  padding-bottom: 10px;
 }
 
 .footer {
@@ -135,6 +135,11 @@ body {
 }
 
 main {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+mainSignonHome {
   padding-top: 7rem;
   padding-bottom: 2rem;
 }
@@ -223,7 +228,7 @@ main {
   background: -webkit-linear-gradient(to right, #00b09b, #96c93d);
   background: linear-gradient(to right, #00b09b, #96c93d);
   min-height: 100vh;
-  padding-top: 0;
+  padding-top: 4rem;
   padding-bottom: 0;
 }
 
