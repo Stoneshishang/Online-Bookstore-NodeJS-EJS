@@ -29,7 +29,7 @@ body {
 }
 
 .footer-padding {
-  padding-bottom: 60px;
+  padding-bottom: 10px;
 }
 
 .footer {
@@ -56,20 +56,15 @@ body {
 }
 
 .container {
-<<<<<<< HEAD
-  position relative;
-=======
   padding-top: 0;
   padding-bottom: 0;
   position: relative;
->>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
 }
 
 .form {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .input-group.md-form.form-sm.form-2 input {
@@ -78,20 +73,10 @@ body {
   border-bottom-left-radius: 0.25rem;
 }
 
-<<<<<<< HEAD
-/* CUSTOMIZE THE CAROUSEL
--------------------------------------------------- */
-/* Carousel base class */
-=======
->>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
 .carousel {
   margin-bottom: 4rem;
 }
 
-<<<<<<< HEAD
-/* Since positioning the image, we need to help out the caption */
-=======
->>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
 .carousel-caption {
   bottom: 3rem;
   z-index: 10;
@@ -109,16 +94,8 @@ body {
   height: 32rem;
 }
 
-<<<<<<< HEAD
-/* Featurettes
-------------------------- */
 .featurette-divider {
   margin: 5rem 0;
-  /* Space out the Bootstrap <hr> more */
-=======
-.featurette-divider {
-  margin: 5rem 0;
->>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
 }
 
 .featurette-heading {
@@ -127,17 +104,9 @@ body {
   letter-spacing: -.05rem;
 }
 
-<<<<<<< HEAD
-/* RESPONSIVE CSS
--------------------------------------------------- */
-@media (min-width: 40em) {
-
-  /* Bump up size of carousel content */
-=======
 @media (min-width: 40em) {
 
 
->>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
   .carousel-caption p {
     margin-bottom: 1.25rem;
     font-size: 1.25rem;
@@ -165,6 +134,11 @@ body {
 }
 
 main {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+mainSignonHome {
   padding-top: 7rem;
   padding-bottom: 2rem;
 }
@@ -188,7 +162,6 @@ main {
 
 .box {
   padding: 20px;
-<<<<<<< HEAD
 }
 
 .centering {
@@ -206,25 +179,6 @@ main {
   opacity: 0;
   visibility: hidden;
   text-align: center;
-=======
-}
-
-.centering {
-  width: 80%;
-  text-align: center;
-  padding: 20px 0;
-}
-
-.Each-book .add-to-cart {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #fff;
-  opacity: 0;
-  visibility: hidden;
-  text-align: center;
->>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
   -webkit-transform: scale(.7);
   transform: scale(.7);
   height: 105px;
@@ -274,8 +228,12 @@ main {
   background: linear-gradient(to right, #00b09b, #96c93d);
   min-height: 100vh;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   padding-top: 0;
+=======
+  padding-top: 4rem;
+>>>>>>> abi
   padding-bottom: 0;
 }
 
