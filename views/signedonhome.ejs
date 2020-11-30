@@ -41,9 +41,10 @@
             <a class="nav-link" href="#">MY ACCOUNT</a>
           </li>
           <li class="nav-item">
-            <span style="color: Dodgerblue;">
-              <i class="fas fa-shopping-cart fa-3x"></i>
-            </span>
+              <a href="/checkout"><span class="fa-stack fa-2x has-badge" href="/checkout" bookSelectedCount="<%= addToCartButtonNumber %>">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+              </span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/">LOG OUT</a>
@@ -95,10 +96,12 @@
                           <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
                         </ul>
                       </div>
-                    </div><img src="/images/bookImage.jpg" alt="Placeholder Book Image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div><img src= <%= newListItems[i].photoPath %>  alt="Placeholder Book Image" width="200" class="ml-lg-5 order-1 order-lg-2">
                   </div>
                   <div class="add-to-cart">
-                    <a href="#" class="default-btn">Add to Cart</a>
+                    <form class="" action="/signedonhome" method="post">
+                    <button class="default-btn" name= "userAddToCartButton" onclick='funcClick()' value=<%= newListItems[i].bookId %> >Add to Cart</button>
+                    </form>
                   </div>
                 </li>
               </ul>
@@ -106,9 +109,10 @@
             <% } %>
           </div>
         </div>
+        <a class="btn btn-primary btn-lg btn-block" href="/checkout" role="button">Go to cart</a>
       </div>
   </main>
-  <!-- FOOTER -->
+
   <div class="footer-padding"></div>
   <div class="footer">
     <p>©Copyright 2020 Al-Siddique ☪️ Bookstore</p>

@@ -56,7 +56,13 @@ body {
 }
 
 .container {
+<<<<<<< HEAD
   position relative;
+=======
+  padding-top: 0;
+  padding-bottom: 0;
+  position: relative;
+>>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
 }
 
 .form {
@@ -72,20 +78,25 @@ body {
   border-bottom-left-radius: 0.25rem;
 }
 
+<<<<<<< HEAD
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 /* Carousel base class */
+=======
+>>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
 .carousel {
   margin-bottom: 4rem;
 }
 
+<<<<<<< HEAD
 /* Since positioning the image, we need to help out the caption */
+=======
+>>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
 .carousel-caption {
   bottom: 3rem;
   z-index: 10;
 }
 
-/* Declare heights because of positioning of img element */
 .carousel-item {
   height: 32rem;
 }
@@ -98,25 +109,35 @@ body {
   height: 32rem;
 }
 
+<<<<<<< HEAD
 /* Featurettes
 ------------------------- */
 .featurette-divider {
   margin: 5rem 0;
   /* Space out the Bootstrap <hr> more */
+=======
+.featurette-divider {
+  margin: 5rem 0;
+>>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
 }
 
-/* Thin out the marketing headings */
 .featurette-heading {
   font-weight: 300;
   line-height: 1;
   letter-spacing: -.05rem;
 }
 
+<<<<<<< HEAD
 /* RESPONSIVE CSS
 -------------------------------------------------- */
 @media (min-width: 40em) {
 
   /* Bump up size of carousel content */
+=======
+@media (min-width: 40em) {
+
+
+>>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
   .carousel-caption p {
     margin-bottom: 1.25rem;
     font-size: 1.25rem;
@@ -167,6 +188,7 @@ main {
 
 .box {
   padding: 20px;
+<<<<<<< HEAD
 }
 
 .centering {
@@ -184,6 +206,25 @@ main {
   opacity: 0;
   visibility: hidden;
   text-align: center;
+=======
+}
+
+.centering {
+  width: 80%;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.Each-book .add-to-cart {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  text-align: center;
+>>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
   -webkit-transform: scale(.7);
   transform: scale(.7);
   height: 105px;
@@ -232,4 +273,37 @@ main {
   background: -webkit-linear-gradient(to right, #00b09b, #96c93d);
   background: linear-gradient(to right, #00b09b, #96c93d);
   min-height: 100vh;
+<<<<<<< HEAD
+=======
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.fa-stack[bookSelectedCount]:after{
+  position:absolute;
+  right:0%;
+  top:0%;
+  content: attr(bookSelectedCount);
+  font-size:40%;
+  padding:.6em;
+  border-radius:999px;
+  line-height:.75em;
+  color: white;
+  color:#16a596;
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+  background: white;
+  border-style:solid;
+}
+
+.lh-condensed { line-height: 1.25; }
+
+.checkoutContainer {
+  max-width: 960px;
+  margin: auto;
+  width: 60%;
+  padding-top: 50px;
+  padding-left: 50px;
+>>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
 }

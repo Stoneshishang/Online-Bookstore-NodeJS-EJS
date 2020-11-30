@@ -37,6 +37,73 @@ const renderSignedOnHome = (bookDisplayURL, categoryURL, res) =>{
   })
 }
 
+let cartItems      = [];
+let cartItemNumber = cartItems.length;
+function funcClick(){
+  cartItemNumber++
+  return  cartItemNumber;
+}
+
+function removeItemClick(){
+  cartItemNumber--
+  return  cartItemNumber;
+}
+
+function reducecartItemsClick(thisbookID){
+   const cartItemsTemp     = cartItems.filter(d => d.bookId == thisbookID);
+   cartItems               = cartItemsTemp;
+  return  cartItems;
+}
+
+function priceTotal(){
+  var pTotal = 0;
+  for(var i in cartItems){
+    p = parseInt(cartItems[i].price);
+    pTotal += p;
+  }
+  return pTotal;
+}
+
+function getASpecificBook(givenID)
+{
+  const allBook = modulate.getbookInfo();
+  for(var i = 0; i < allBook.length; i++){
+    var thisBook = allBook[i];
+    if(givenID == thisBook.bookId){
+      theBook = thisBook
+   }
+  }
+ return theBook;
+}
+
+function getBookByCategory(categoryID)
+{
+  bookCategory = [];
+  const allBook = modulate.getbookInfo();
+  for(var i = 0; i < allBook.length; i++){
+    var thisBook = allBook[i];
+    if(categoryID == thisBook.categoryId){
+      theBook = thisBook
+      bookCategory.push(theBook)
+   }
+  }
+ return bookCategory;
+}
+
+function getBookByAuthor(authorID)
+{
+  bookAuthor = [];
+  const allBook = modulate.getbookInfo();
+  for(var i = 0; i < allBook.length; i++){
+    var thisBook = allBook[i];
+    if(authorID == thisBook.authorId){
+      theBook = thisBook
+      bookAuthor.push(theBook)
+   }
+  }
+ return bookAuthor;
+}
+
 app.get("/", function(req, res){
 
     res.render("home");
@@ -160,6 +227,7 @@ app.get("/signedonhome", messages, function(req, res){
 
 });
 
+
 app.post("/signedonhome", messages, function(req, res){
 
   let Category = req.body.category;
@@ -169,6 +237,34 @@ app.post("/signedonhome", messages, function(req, res){
 
   renderSignedOnHome(filterURL,categoryURL, res);
    
+});
+
+app.get("/signedonhome", function(req, res){
+  const myUserFirstName = modulate.getUserFirstName();
+  const day             = modulate.getDate();
+  const Books           = modulate.getbookInfo();
+  res.render("signedonhome", {addToCartButtonNumber:cartItemNumber, userFirstName: myUserFirstName, todayDate: day, newListItems: Books});
+});
+
+app.post("/signedonhome", function(req, res){
+  bookID                  = req.body.userAddToCartButton;
+  const myBook            = getASpecificBook(bookID);
+  cartItems.push(myBook);
+  funcClick();
+  res.redirect("/signedonhome");
+});
+
+app.get("/checkout", function(req, res){
+  let storeTotalPrice = priceTotal();
+  res.render("checkout", {itemCartNumber:cartItemNumber, cartItemList: cartItems, itemsTotalPrice: storeTotalPrice});
+});
+
+
+app.post("/checkout", function(req, res){
+  bookID                  = req.body.removeItembutton;
+  reducecartItemsClick(bookID);
+  removeItemClick();
+  res.redirect("/checkout");
 });
 
 

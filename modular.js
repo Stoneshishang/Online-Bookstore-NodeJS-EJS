@@ -64,8 +64,12 @@ exports.getUserFirstName = function(userInfoURL){
   )
 
   // const myFirstName = "Shang Testing"
-
   //   return myFirstName;
 }
 
 
+exports.addToCartClick = function(){
+  var i = 0;
+  addToCartButtonNumber = ++i
+  return addToCartButtonNumber;
+};
