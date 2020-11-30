@@ -32,9 +32,9 @@ const messages = (req,res,next) =>{
 const renderSignedOnHome = (bookDisplayURL, categoryURL, res) =>{
   modulate.getbookInfo(bookDisplayURL).then((bookList) =>{
     modulate.getbookInfo(categoryURL).then((bookCategoryList) =>{
-    res.render("signedonhome", {userFirstName: userFname, todayDate: day, newListItems: bookList, categoryList: bookCategoryList});
-  });
-  })
+    res.render("signedonhome", {addToCartButtonNumber:cartItemNumber, userFirstName: userFname, todayDate: day, newListItems: bookList, categoryList: bookCategoryList});
+  }).catch(e=>{console.log(e);});
+  }).catch(e=>{console.log(e);});
 }
 
 let cartItems      = [];
@@ -61,49 +61,71 @@ function priceTotal(){
   var pTotal = 0;
   for(var i in cartItems){
     p = parseInt(cartItems[i].price);
+    // console.log("cartItems[i] is: ", cartItems[i]);
     pTotal += p;
   }
   return pTotal;
 }
 
+let newBook = "";
+
 function getASpecificBook(givenID)
 {
-  const allBook = modulate.getbookInfo();
-  for(var i = 0; i < allBook.length; i++){
-    var thisBook = allBook[i];
-    if(givenID == thisBook.bookId){
-      theBook = thisBook
-   }
-  }
- return theBook;
+  
+  modulate.getbookInfo(initialRenderBookList).then((allBook) =>{
+
+    // console.log("allBook.length is: ", allBook);
+    
+    for(var i = 0; i < allBook.length; i++){
+      var thisBook = allBook[i];
+
+      if(givenID == thisBook.bookId){
+        newBook = thisBook;
+        // console.log("thisBook in getASpecificBook is: ", theBook);
+     }
+    }
+   
+  }).catch(e=>{
+    console.log(e);
+  });
+
+  // console.log("newBook is: ",newBook.title);
+  return newBook;
 }
 
 function getBookByCategory(categoryID)
 {
   bookCategory = [];
-  const allBook = modulate.getbookInfo();
-  for(var i = 0; i < allBook.length; i++){
-    var thisBook = allBook[i];
-    if(categoryID == thisBook.categoryId){
-      theBook = thisBook
-      bookCategory.push(theBook)
-   }
-  }
- return bookCategory;
+  modulate.getbookInfo(initialRenderBookList).then((allBook)=>{
+
+    // console.log("allBook in getBookByCategory is: ", allBook);
+    for(var i = 0; i < allBook.length; i++){
+      var thisBook = allBook[i];
+      if(categoryID == thisBook.categoryId){
+        theBook = thisBook
+        bookCategory.push(theBook)
+     }
+    }
+   return bookCategory;
+  });
+  
 }
 
 function getBookByAuthor(authorID)
 {
   bookAuthor = [];
-  const allBook = modulate.getbookInfo();
-  for(var i = 0; i < allBook.length; i++){
-    var thisBook = allBook[i];
-    if(authorID == thisBook.authorId){
-      theBook = thisBook
-      bookAuthor.push(theBook)
-   }
-  }
- return bookAuthor;
+  modulate.getbookInfo(initialRenderBookList).then((allBook)=>{
+    // console.log("allBook in getBookByAuthor is: ", allBook);
+    for(var i = 0; i < allBook.length; i++){
+      var thisBook = allBook[i];
+      if(authorID == thisBook.authorId){
+        theBook = thisBook
+        bookAuthor.push(theBook)
+     }
+    }
+   return bookAuthor;
+  });
+  
 }
 
 app.get("/", function(req, res){
@@ -232,8 +254,24 @@ app.get("/signedonhome", messages, function(req, res){
 
 app.post("/signedonhome", messages, function(req, res){
 
+  bookID                  = req.body.userAddToCartButton;
+  const myBook            = getASpecificBook(bookID);
+
+  console.log("myBook is: ", myBook.title);
+
+  if(myBook !== ''){
+    cartItems.push(myBook);
+    funcClick();
+  }
+  
+  // console.log("cartItems is: ", cartItems);
+  // res.redirect("/signedonhome");
+
   let Category = req.body.category;
   let Author =  req.body.author;
+
+  // console.log("Category is: ", Category);
+  // console.log("Author is: ", Author);
 
   const filterURL = `${initialRenderBookList}?Category=${Category}&Author=${Author}`;
 
@@ -241,20 +279,6 @@ app.post("/signedonhome", messages, function(req, res){
    
 });
 
-app.get("/signedonhome", function(req, res){
-  const myUserFirstName = modulate.getUserFirstName();
-  const day             = modulate.getDate();
-  const Books           = modulate.getbookInfo();
-  res.render("signedonhome", {addToCartButtonNumber:cartItemNumber, userFirstName: myUserFirstName, todayDate: day, newListItems: Books});
-});
-
-app.post("/signedonhome", function(req, res){
-  bookID                  = req.body.userAddToCartButton;
-  const myBook            = getASpecificBook(bookID);
-  cartItems.push(myBook);
-  funcClick();
-  res.redirect("/signedonhome");
-});
 
 app.get("/checkout", function(req, res){
   let storeTotalPrice = priceTotal();

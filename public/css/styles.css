@@ -50,7 +50,8 @@ body {
 .carouselContainer {
   height: 100vh;
   width: 100%;
-  display: flex justify-content: center;
+  display: flex;
+  justify-content: center;
   align-items: center;
   padding: 15px;
 }
@@ -86,7 +87,7 @@ body {
   height: 32rem;
 }
 
-.carousel-item>img {
+.carousel-item > img {
   position: absolute;
   top: 0;
   left: 0;
@@ -101,12 +102,10 @@ body {
 .featurette-heading {
   font-weight: 300;
   line-height: 1;
-  letter-spacing: -.05rem;
+  letter-spacing: -0.05rem;
 }
 
 @media (min-width: 40em) {
-
-
   .carousel-caption p {
     margin-bottom: 1.25rem;
     font-size: 1.25rem;
@@ -124,12 +123,13 @@ body {
   }
 }
 
-.active-cyan input.form-control[type=text] {
+.active-cyan input.form-control[type="text"] {
   border-bottom: 1px solid #4dd0e1;
   box-shadow: 0 1px 0 0 #4dd0e1;
 }
 
-.active-cyan .fa, .active-cyan-2 .fa {
+.active-cyan .fa,
+.active-cyan-2 .fa {
   color: #4dd0e1;
 }
 
@@ -179,12 +179,12 @@ mainSignonHome {
   opacity: 0;
   visibility: hidden;
   text-align: center;
-  -webkit-transform: scale(.7);
-  transform: scale(.7);
+  -webkit-transform: scale(0.7);
+  transform: scale(0.7);
   height: 105px;
-  -moz-transition: .4s;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -moz-transition: 0.4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .Each-book:hover .add-to-cart {
@@ -219,7 +219,7 @@ mainSignonHome {
   border-radius: 30px;
   text-transform: uppercase;
   font-weight: 600;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 .homePageBackground {
@@ -227,35 +227,34 @@ mainSignonHome {
   background: -webkit-linear-gradient(to right, #00b09b, #96c93d);
   background: linear-gradient(to right, #00b09b, #96c93d);
   min-height: 100vh;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   padding-top: 0;
-=======
+
   padding-top: 4rem;
->>>>>>> abi
+
   padding-bottom: 0;
 }
 
-.fa-stack[bookSelectedCount]:after{
-  position:absolute;
-  right:0%;
-  top:0%;
+.fa-stack[bookSelectedCount]:after {
+  position: absolute;
+  right: 0%;
+  top: 0%;
   content: attr(bookSelectedCount);
-  font-size:40%;
-  padding:.6em;
-  border-radius:999px;
-  line-height:.75em;
+  font-size: 40%;
+  padding: 0.6em;
+  border-radius: 999px;
+  line-height: 0.75em;
   color: white;
-  color:#16a596;
-  text-align:center;
-  min-width:2em;
-  font-weight:bold;
+  color: #16a596;
+  text-align: center;
+  min-width: 2em;
+  font-weight: bold;
   background: white;
-  border-style:solid;
+  border-style: solid;
 }
 
-.lh-condensed { line-height: 1.25; }
+.lh-condensed {
+  line-height: 1.25;
+}
 
 .checkoutContainer {
   max-width: 960px;
@@ -263,5 +262,4 @@ mainSignonHome {
   width: 60%;
   padding-top: 50px;
   padding-left: 50px;
->>>>>>> 13c4bf4238c851add11d9a32c5ef71802981b580
 }
