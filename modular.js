@@ -23,22 +23,18 @@ exports.getDay = function() {
 };
 
 
-exports.getbookInfo = function(BookListURL){
- 
-  return ( axios.get(BookListURL)
-  .then(function (response) {
-    // handle success
-    // console.log('getBookInfo status: ',response.status);
- 
-     let bookList = response.data;
+exports.getbookInfo = async function(BookListURL){ 
+   const request = await axios.get(BookListURL);
 
-    //  console.log('booklist is: ', bookList);
-     return bookList;
-  })
-  .catch(function (error) {
+  //const data =  request.then((response)=> response.data);
+
+
+
+  return request.data;
+  //return data;
+  //.catch(function (error) {
     // handle error
-    console.log(error);
-  }))
+  // console.log(error);})
    // console.log('booklist is: ', bookList);
 
 }

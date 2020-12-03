@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const axios = require('axios');
 const { localhost } = require('./config');
+const e = require("express");
 
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
@@ -67,30 +68,14 @@ function priceTotal(){
   return pTotal;
 }
 
-let newBook = "";
-
 function getASpecificBook(givenID)
 {
-  
-  modulate.getbookInfo(initialRenderBookList).then((allBook) =>{
+  const booklist = modulate.getbookInfo(initialRenderBookList);
+  const mybook =  booklist.then((allBook) =>
+     allBook.filter(element=>element.bookId==givenID)[0]
+     )
 
-    // console.log("allBook.length is: ", allBook);
-    
-    for(var i = 0; i < allBook.length; i++){
-      var thisBook = allBook[i];
-
-      if(givenID == thisBook.bookId){
-        newBook = thisBook;
-        // console.log("thisBook in getASpecificBook is: ", theBook);
-     }
-    }
-   
-  }).catch(e=>{
-    console.log(e);
-  });
-
-  // console.log("newBook is: ",newBook.title);
-  return newBook;
+  return mybook;
 }
 
 function getBookByCategory(categoryID)
@@ -251,31 +236,30 @@ app.get("/signedonhome", messages, function(req, res){
 
 });
 
-
 app.post("/signedonhome", messages, function(req, res){
-
-  bookID                  = req.body.userAddToCartButton;
-  const myBook            = getASpecificBook(bookID);
-
-  console.log("myBook is: ", myBook.title);
-
-  if(myBook !== ''){
-    cartItems.push(myBook);
-    funcClick();
-  }
-  
-  // console.log("cartItems is: ", cartItems);
-  // res.redirect("/signedonhome");
 
   let Category = req.body.category;
   let Author =  req.body.author;
+  bookID = req.body.userAddToCartButton;
+  
+  //when user only filtering, the cartItems array won't be increased。
+  if(Category == undefined || Author == undefined){
+    getASpecificBook(bookID).then((response)=>{
+    
+      const myBook = response;
+      cartItems.push(myBook);
+      funcClick();
+    })
+  }
+  
+  //when user add books to cart, the selection page would still render. 
+  if(Category !== undefined || Author !== undefined){
+    const filterURL = `${initialRenderBookList}?Category=${Category}&Author=${Author}`;
+    renderSignedOnHome(filterURL,categoryURL, res);
+  }
 
-  // console.log("Category is: ", Category);
-  // console.log("Author is: ", Author);
-
-  const filterURL = `${initialRenderBookList}?Category=${Category}&Author=${Author}`;
-
-  renderSignedOnHome(filterURL,categoryURL, res);
+  renderSignedOnHome(initialRenderBookList, categoryURL, res);
+  
    
 });
 
