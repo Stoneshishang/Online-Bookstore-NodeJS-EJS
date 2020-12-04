@@ -3,38 +3,263 @@ html {
   position: relative;
 }
 
+body {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  color: #5a5a5a;
+}
+
 .container-fluid {
-    padding-top: 70px;
-    padding-bottom: 70px;
+  padding-top: 70px;
+  padding-bottom: 70px;
 }
+
 .navbar {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border: 0;
-    border-radius: 0;
-    margin-bottom: 0;
-    font-size: 12px;
-    letter-spacing: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  letter-spacing: 5px;
 }
-.navbar-nav  li a:hover {
-    color: #158467 !important;
+
+.navbar-nav li a:hover {
+  color: #158467 !important;
 }
 
 .footer-padding {
-	padding-bottom: 60px;
+  padding-bottom: 10px;
 }
 
 .footer {
-	position: absolute;
-	text-align: center;
-	bottom: 0;
-	width: 100%;
-	height: 60px;
-	background-color: #158467;
+  position: absolute;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #158467;
 }
 
 .footer p {
-	margin-top: 25px;
-	font-size: 12px;
+  margin-top: 25px;
+  font-size: 12px;
   color: #fff;
+}
+
+.carouselContainer {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.container {
+  padding-top: 0;
+  padding-bottom: 0;
+  position: relative;
+}
+
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.input-group.md-form.form-sm.form-2 input {
+  border: 1px solid #bdbdbd;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.carousel {
+  margin-bottom: 4rem;
+}
+
+.carousel-caption {
+  bottom: 3rem;
+  z-index: 10;
+}
+
+.carousel-item {
+  height: 32rem;
+}
+
+.carousel-item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 32rem;
+}
+
+.featurette-divider {
+  margin: 5rem 0;
+}
+
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.05rem;
+}
+
+@media (min-width: 40em) {
+  .carousel-caption p {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+@media (min-width: 62em) {
+  .featurette-heading {
+    margin-top: 7rem;
+  }
+}
+
+.active-cyan input.form-control[type="text"] {
+  border-bottom: 1px solid #4dd0e1;
+  box-shadow: 0 1px 0 0 #4dd0e1;
+}
+
+.active-cyan .fa,
+.active-cyan-2 .fa {
+  color: #4dd0e1;
+}
+
+main {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+mainSignonHome {
+  padding-top: 7rem;
+  padding-bottom: 2rem;
+}
+
+.extra-margins {
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.jumbotron {
+  text-align: center;
+}
+
+.navbar .btn-group .dropdown-menu a:active {
+  color: #fff !important;
+}
+
+.search-form {
+  border-radius: 30px 0 0 30px;
+}
+
+.box {
+  padding: 20px;
+}
+
+.centering {
+  width: 80%;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.Each-book .add-to-cart {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  text-align: center;
+  -webkit-transform: scale(0.7);
+  transform: scale(0.7);
+  height: 105px;
+  -moz-transition: 0.4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.Each-book:hover .add-to-cart {
+  visibility: visible;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  opacity: 1;
+}
+
+.Each-book .add-to-cart .default-btn {
+  margin-top: 8px;
+  padding: 8px 15px;
+  font-size: 14px;
+}
+
+.Each-book .category {
+  margin: 0;
+}
+
+.Each-book .add-to-cart .default-btn {
+  margin-top: 28px;
+  padding: 8px 25px;
+  font-size: 14px;
+}
+
+.default-btn {
+  background-color: #03c4a1;
+  color: #fff;
+  border: 1px solid #03c4a1;
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 30px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: "Open Sans", sans-serif;
+}
+
+.homePageBackground {
+  background: #00b09b;
+  background: -webkit-linear-gradient(to right, #00b09b, #96c93d);
+  background: linear-gradient(to right, #00b09b, #96c93d);
+  min-height: 100vh;
+  padding-top: 0;
+
+  padding-top: 4rem;
+
+  padding-bottom: 0;
+}
+
+.fa-stack[bookSelectedCount]:after {
+  position: absolute;
+  right: 0%;
+  top: 0%;
+  content: attr(bookSelectedCount);
+  font-size: 40%;
+  padding: 0.6em;
+  border-radius: 999px;
+  line-height: 0.75em;
+  color: white;
+  color: #16a596;
+  text-align: center;
+  min-width: 2em;
+  font-weight: bold;
+  background: white;
+  border-style: solid;
+}
+
+.lh-condensed {
+  line-height: 1.25;
+}
+
+.checkoutContainer {
+  max-width: 960px;
+  margin: auto;
+  width: 60%;
+  padding-top: 50px;
+  padding-left: 50px;
 }
