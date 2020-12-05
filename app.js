@@ -22,6 +22,7 @@ app.use(express.static("public"));
 const categoryURL = `${localhost}/Category/Categories`;
 const initialRenderBookList =`${localhost}/Book/Books`
 let userFname = '';
+let userInformation ='';
 const day = modulate.getDate();
 
 const messages = (req,res,next) =>{
@@ -138,6 +139,8 @@ app.post("/signin", messages, function(req, res){
     console.log('login success');
     if(response.status == 200){
       userFname = response.data.firstname;
+      userInformation = response.data;
+      console.log('signin userInformation: ', userInformation);
       res.redirect('/signedonhome')
     }
   })
@@ -278,7 +281,8 @@ app.post("/checkout", function(req, res){
 });
 
 app.get("/myaccount", function(req, res){
-  res.render("myaccount");
+  console.log("myAccount is: ", userInformation);
+  res.render("myaccount", {user: userInformation});
 });
 
 app.post("/myaccount", function(req, res){
