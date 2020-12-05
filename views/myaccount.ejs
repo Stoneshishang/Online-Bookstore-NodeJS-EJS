@@ -33,7 +33,7 @@
             <a class="nav-link" href="/customerservice">CONTACT</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/customerservice">HELP</a>
+            <a class="nav-link" href="#">HELP</a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -61,25 +61,45 @@
                             <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-users"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="firstName" placeholder="<%= user.firstName %>" name="registerFirstName">
+                            <input type="text" class="form-control" id="accountfirstName" placeholder="<%= user.firstName %>" name="accountFirstName">
                           </div>
                       </div>
                       <div class="form-group col-md-6">
                           <label for="lastname">Lastname</label>
-                          <input type="text" id="lastname" class="form-control" placeholder="<%= user.lastName %>" />
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"><i class="fas fa-users"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="accountLastName" placeholder="<%= user.lastName %>" name="accountLastName">
+                          </div>
                       </div>
                   </div>
                   <div class="form-group">
                       <label for="inputEmail4">Email</label>
-                      <input type="email" class="form-control" id="inputEmail4" placeholder="<%= user.email %>" />
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-envelope"></i></span>
+                        </div>
+                        <input type="email" class="form-control" id="accountEmail" placeholder="<%= user.email %>" name="accountEmailAddress">
+                      </div>
                   </div>
                   <div class="form-group">
                       <label for="inputAddress5">Address</label>
-                      <input type="text" class="form-control" id="inputAddress5" placeholder="<%= user.address1 %>" />
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-home"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="accountAddress" placeholder="<%= user.address1 %>" name="accountAddress1">
+                      </div>
                   </div>
                   <div class="form-group">
                       <label for="inputAddress5">Address</label>
-                      <input type="text" class="form-control" id="inputAddress5" placeholder="<%= user.address2 %>" />
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-home"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="accountAddress2" placeholder="<%= user.address2 %>" name="accountAddress2">
+                      </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
@@ -145,7 +165,7 @@
                       </div>
                       <div class="form-group col-md-2">
                           <label for="inputZip5">Zip</label>
-                          <input type="text" class="form-control" id="inputZip5" placeholder="<%= user.zipCode %>" />
+                          <input type="text" class="form-control" id="accountZip" placeholder="<%= user.zipCode %>" />
                       </div>
                   </div>
                   <hr class="my-4" />
