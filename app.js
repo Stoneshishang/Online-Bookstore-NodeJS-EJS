@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const axios = require('axios');
 const { localhost } = require('./config');
 const e = require("express");
+const { resolveInclude } = require("ejs");
 
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
@@ -140,7 +141,7 @@ app.post("/signin", messages, function(req, res){
     if(response.status == 200){
       userFname = response.data.firstname;
       userInformation = response.data;
-      console.log('signin userInformation: ', userInformation);
+      // console.log('signin userInformation: ', userInformation);
       res.redirect('/signedonhome')
     }
   })
@@ -280,12 +281,28 @@ app.post("/checkout", function(req, res){
   res.redirect("/checkout");
 });
 
-app.get("/myaccount", function(req, res){
-  console.log("myAccount is: ", userInformation);
+app.get("/myaccount", messages,function(req, res){
+
   res.render("myaccount", {user: userInformation});
 });
 
-app.post("/myaccount", function(req, res){
+app.post("/myaccount", messages, function(req, res){
+
+const updateAccountURL = `${localhost}/Account/UpdateAccount`
+const content = userInformation  
+  console.log('/myaccount req.body is: ', content);
+axios.put(
+  updateAccountURL,
+  'PUT',
+  content,
+).then((response) =>{
+  resolve(response.data.content)
+  console.log("myaccount axiso PUT is: ", response.data);
+}).catch(e=>console.log(e));
+
+message = "Customer Information change failed, please try again."
+res.locals.message = message;
+
     res.redirect("/myaccount");
 });
 
