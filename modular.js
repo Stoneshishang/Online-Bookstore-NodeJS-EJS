@@ -26,17 +26,7 @@ exports.getDay = function() {
 exports.getbookInfo = async function(BookListURL){ 
    const request = await axios.get(BookListURL);
 
-  //const data =  request.then((response)=> response.data);
-
-
-
   return request.data;
-  //return data;
-  //.catch(function (error) {
-    // handle error
-  // console.log(error);})
-   // console.log('booklist is: ', bookList);
-
 }
 
 
@@ -59,8 +49,6 @@ exports.getUserFirstName = function(userInfoURL){
   })
   )
 
-  // const myFirstName = "Shang Testing"
-  //   return myFirstName;
 }
 
 
