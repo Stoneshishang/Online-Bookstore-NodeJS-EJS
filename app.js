@@ -93,7 +93,7 @@ function getBookByCategory(categoryID)
     }
    return bookCategory;
   });
-  
+
 }
 
 function getBookByAuthor(authorID)
@@ -110,7 +110,7 @@ function getBookByAuthor(authorID)
     }
    return bookAuthor;
   });
-  
+
 }
 
 app.get("/", function(req, res){
@@ -197,11 +197,11 @@ app.post("/register", messages, function(req, res){
     body
     )
     .then(function (response) {
-     
+
       console.log('createAccount Success');
       message = "Account has been successfully Created!"
       res.locals.message = message;
-      
+
       res.redirect('signin')
     })
     .catch(function (error) {
@@ -241,26 +241,26 @@ app.post("/signedonhome", messages, function(req, res){
   let Category = req.body.category;
   let Author =  req.body.author;
   bookID = req.body.userAddToCartButton;
-  
+
   //when user only filtering, the cartItems array won't be increased。
   if(Category == undefined || Author == undefined){
     getASpecificBook(bookID).then((response)=>{
-    
+
       const myBook = response;
       cartItems.push(myBook);
       funcClick();
     })
   }
-  
-  //when user add books to cart, the selection page would still render. 
+
+  //when user add books to cart, the selection page would still render.
   if(Category !== undefined || Author !== undefined){
     const filterURL = `${initialRenderBookList}?Category=${Category}&Author=${Author}`;
     renderSignedOnHome(filterURL,categoryURL, res);
   }
 
   renderSignedOnHome(initialRenderBookList, categoryURL, res);
-  
-   
+
+
 });
 
 
@@ -275,6 +275,14 @@ app.post("/checkout", function(req, res){
   removecartItemsClick(cartItems, 'bookId', bookID);
   cartItemNumber                = cartItems.length;
   res.redirect("/checkout");
+});
+
+app.get("/myaccount", function(req, res){
+  res.render("myaccount");
+});
+
+app.post("/myaccount", function(req, res){
+    res.redirect("/myaccount");
 });
 
 
