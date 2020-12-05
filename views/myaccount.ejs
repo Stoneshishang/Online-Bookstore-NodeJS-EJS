@@ -61,7 +61,7 @@
                             <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-users"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="accountfirstName" placeholder="<%= user.firstName %>" name="accountFirstName">
+                            <input type="text" class="form-control" id="accountfirstName" placeholder="<%= user.firstname %>" name="accountFirstName">
                           </div>
                       </div>
                       <div class="form-group col-md-6">
@@ -70,7 +70,7 @@
                             <div class="input-group-prepend">
                               <span class="input-group-text"><i class="fas fa-users"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="accountLastName" placeholder="<%= user.lastName %>" name="accountLastName">
+                            <input type="text" class="form-control" id="accountLastName" placeholder="<%= user.lastname %>" name="accountLastName">
                           </div>
                       </div>
                   </div>
@@ -89,7 +89,7 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fas fa-home"></i></span>
                         </div>
-                        <input type="text" class="form-control" id="accountAddress" placeholder="<%= user.address1 %>" name="accountAddress1">
+                        <input type="text" class="form-control" id="accountAddress" placeholder="<%= user.address.address %>" name="accountAddress1">
                       </div>
                   </div>
                   <div class="form-group">
@@ -98,13 +98,13 @@
                         <div class="input-group-prepend">
                           <span class="input-group-text"><i class="fas fa-home"></i></span>
                         </div>
-                        <input type="text" class="form-control" id="accountAddress2" placeholder="<%= user.address2 %>" name="accountAddress2">
+                        <input type="text" class="form-control" id="accountAddress2" placeholder="<%= user.address.address2 %>" name="accountAddress2">
                       </div>
                   </div>
                   <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputCompany5">City</label>
-                        <input type="text" class="form-control" id="inputCompany5" placeholder="<%= user.city %>" />
+                        <input type="text" class="form-control" id="inputCompany5" placeholder="<%= user.address.city %>" />
                     </div>
                       <div class="form-group col-md-4">
                           <label for="inputState5">State</label>
@@ -165,7 +165,7 @@
                       </div>
                       <div class="form-group col-md-2">
                           <label for="inputZip5">Zip</label>
-                          <input type="text" class="form-control" id="accountZip" placeholder="<%= user.zipCode %>" />
+                          <input type="text" class="form-control" id="accountZip" placeholder="<%= user.address.zipCode %>" />
                       </div>
                   </div>
                   <hr class="my-4" />
