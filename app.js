@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const axios = require('axios');
 const { localhost } = require('./config');
 const e = require("express");
+const { resolveInclude } = require("ejs");
 
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
@@ -22,6 +23,7 @@ app.use(express.static("public"));
 const categoryURL = `${localhost}/Category/Categories`;
 const initialRenderBookList =`${localhost}/Book/Books`
 let userFname = '';
+let userInformation ='';
 const day = modulate.getDate();
 
 const messages = (req,res,next) =>{
@@ -93,7 +95,7 @@ function getBookByCategory(categoryID)
     }
    return bookCategory;
   });
-  
+
 }
 
 function getBookByAuthor(authorID)
@@ -110,7 +112,7 @@ function getBookByAuthor(authorID)
     }
    return bookAuthor;
   });
-  
+
 }
 
 app.get("/", function(req, res){
@@ -138,6 +140,8 @@ app.post("/signin", messages, function(req, res){
     console.log('login success');
     if(response.status == 200){
       userFname = response.data.firstname;
+      userInformation = response.data;
+      // console.log('signin userInformation: ', userInformation);
       res.redirect('/signedonhome')
     }
   })
@@ -197,11 +201,11 @@ app.post("/register", messages, function(req, res){
     body
     )
     .then(function (response) {
-     
+
       console.log('createAccount Success');
       message = "Account has been successfully Created!"
       res.locals.message = message;
-      
+
       res.redirect('signin')
     })
     .catch(function (error) {
@@ -241,26 +245,26 @@ app.post("/signedonhome", messages, function(req, res){
   let Category = req.body.category;
   let Author =  req.body.author;
   bookID = req.body.userAddToCartButton;
-  
+
   //when user only filtering, the cartItems array won't be increased。
   if(Category == undefined || Author == undefined){
     getASpecificBook(bookID).then((response)=>{
-    
+
       const myBook = response;
       cartItems.push(myBook);
       funcClick();
     })
   }
-  
-  //when user add books to cart, the selection page would still render. 
+
+  //when user add books to cart, the selection page would still render.
   if(Category !== undefined || Author !== undefined){
     const filterURL = `${initialRenderBookList}?Category=${Category}&Author=${Author}`;
     renderSignedOnHome(filterURL,categoryURL, res);
   }
 
   renderSignedOnHome(initialRenderBookList, categoryURL, res);
-  
-   
+
+
 });
 
 
@@ -275,6 +279,31 @@ app.post("/checkout", function(req, res){
   removecartItemsClick(cartItems, 'bookId', bookID);
   cartItemNumber                = cartItems.length;
   res.redirect("/checkout");
+});
+
+app.get("/myaccount", messages,function(req, res){
+
+  res.render("myaccount", {user: userInformation});
+});
+
+app.post("/myaccount", messages, function(req, res){
+
+const updateAccountURL = `${localhost}/Account/UpdateAccount`
+const content = userInformation  
+  console.log('/myaccount req.body is: ', content);
+axios.put(
+  updateAccountURL,
+  'PUT',
+  content,
+).then((response) =>{
+  resolve(response.data.content)
+  console.log("myaccount axiso PUT is: ", response.data);
+}).catch(e=>console.log(e));
+
+message = "Customer Information change failed, please try again."
+res.locals.message = message;
+
+    res.redirect("/myaccount");
 });
 
 

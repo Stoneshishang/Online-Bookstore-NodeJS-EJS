@@ -27,27 +27,6 @@ exports.getbookInfo = async function(BookListURL){
    const request = await axios.get(BookListURL);
 
   return request.data;
-}
-
-
-exports.getUserFirstName = function(userInfoURL){
-
-    return ( axios.post(userInfoURL)
-  .then(function (response) {
-    // handle success
-    console.log('status: ',response.status);
- 
-     let userFname = response.data.firstname;
-
-     console.log('User First Name is: ', userFname);
-     return userFname;
-  })
-  .catch(function (error) {
-    // handle error
-    console.log('error happened');
-    console.log(error);
-  })
-  )
 
 }
 
