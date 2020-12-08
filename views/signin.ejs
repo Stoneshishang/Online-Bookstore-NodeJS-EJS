@@ -48,13 +48,13 @@
 
   <div class="container justify-content-center my-auto">
     <div class="text-center">
-    <form class="form-signin">
+    <form class="form-signin" action="/signin" method="post">
       <img class="mb-4" src="/images/favicon_io/favicon.ico" alt="" width="72" height="72">
       <%- include('./messages') -%>
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
-      User Name:  <input type="text" name="userName" id="defaultLoginFormEmail" class="form-control" placeholder="User Name" required autofocus>
-      Password: <input type="password" name="logOnPassword" id="defaultLoginFormPassword" class="form-control" placeholder="Password"  required>
+      User Name:  <input type="text" name="userName" id="defaultLoginFormEmail" class="form-control" placeholder="User Name" autofocus>
+      Password: <input type="password" name="logOnPassword" id="defaultLoginFormPassword" class="form-control" placeholder="Password"  >
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me
