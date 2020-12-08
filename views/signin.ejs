@@ -47,14 +47,21 @@
   </header>
 
   <div class="container justify-content-center my-auto">
-    <form class="form text-center border border-light p-5" action="/signin" method="post">
+    <div class="text-center">
+    <form class="form-signin" action="/signin" method="post">
       <img class="mb-4" src="/images/favicon_io/favicon.ico" alt="" width="72" height="72">
       <%- include('./messages') -%>
-      <p class="h4 mb-4">Please Sign In</p>
- 
-      User Name:  <input type="userName" name="userName" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="userName">
-      Password: <input type="password" name="logOnPassword" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+      User Name:  <input type="text" name="userName" id="defaultLoginFormEmail" class="form-control" placeholder="User Name" autofocus required>
+      Password: <input type="password" name="logOnPassword" id="defaultLoginFormPassword" class="form-control" placeholder="Password"  required>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
       <button class="btn btn-info btn-block my-4" type="submit" value="accept">Sign in</button>
+      <p></p>
       <p>or sign in with:</p>
 
       <a href="#" class="mx-2" role="button"><i class="fab fa-facebook-f light-blue-text"></i></a>
@@ -65,6 +72,7 @@
 
   </div>
 
+</div>
   <div class="footer-padding"></div>
     <div class="footer">
       <p>©Copyright 2020 Alsideeq ☪️ Bookstore</p>
